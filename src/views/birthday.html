@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生日快乐</title>
+    <style type="text/css">
+        body{
+            width: 80%;
+            height: 100%;
+            background-image: url('../assets/images/birthday-background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 15px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction:row;
+            place-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Gloria Hallelujah', cursive;
+        }
+        .left{
+            font-weight: bold;
+            font-family: 隶书;
+            border: 1px solid white;
+            display: flex;
+            width: 500px;
+            text-align: justify-all;
+            font-size: 1.5em;
+            line-height: 2;
+            color: #888888;
+            border-radius: 5px;
+            text-shadow:5px 5px 5px #f3d19e;
+            background-color:#ffffff;
+            opacity:0.6;
+            filter:alpha(opacity=60);
+        }
+
+        h1 {
+            font-size: 6.5vw;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px #eb6383;
+        }
+
+        @keyframes slide-in {
+            0% {
+                transform: scale(2) rotate(60deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes bump-in {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        particule {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            box-shadow: 1px 1px 4px #eb6383;
+        }
+    </style>
+</head>
+<body>
+<h1 data-splitting>生日快乐 Happy birthday ❤<br />🎂</h1>
+<div class="left">
+    <P style="margin-left: 20px">正如玫瑰逗人喜爱，愿你的生日带给你愉快，
+        <br />因为你是最可爱的，愿你生日焕发光彩，
+        <br />伴随着喜悦和欢笑，从天明到日落！
+    </P>
+</div>
+<div class="left" style="margin-left: 55px">
+    <P style="margin-left: 20px">日月轮回，潮起潮落，一切都在永无止境地进行着；<br />
+        很高兴又来到了今天——你的生日，平凡的轮回，祝你有不平凡的快乐，<br />
+        祝你生日快乐！事事顺心如意！
+    </P>
+</div>
+<div class="left" style="margin-left: 55px">
+    <P style="margin-left: 20px">过去的路虽然坎坷，未来却承载着你我共同飞翔的梦，
+        <br />生日，就是一个起点，一切从这里开始，一切都会好起来的
+    </P>
+</div>
+</body>
+</html>
