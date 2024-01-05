@@ -198,5 +198,13 @@ export default {
             data: params,
             mock:false
         });
+    },
+    getAllEmailGroupSendTask(params){
+        return request({
+            url: '/email/getAllEmailGroupSendTask',
+            method: 'post',
+            data: params,
+            mock:false
+        })
     }
 }

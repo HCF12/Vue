@@ -96,7 +96,7 @@ const routes = [
                         }
                     }
                 },
-                component: () => import('../views/EmailSetting.vue')
+                component: () => import('../views/EmailTask.vue')
             },
             {
                 path: '/autoTask',

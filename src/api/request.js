@@ -26,11 +26,11 @@ service.interceptors.request.use((req) => {
 service.interceptors.response.use((res) => {
     const { code, data, msg } = res.data
     //根据后端 协商 视情况而定
-    if(code == 200){
+    if(code === "200"){
         store.state.isLoading=false//loading加载动画
         store.commit('hideLoading')
         return data
-    }else if(code == 400){
+    }else if(code === "400"){
         store.commit('hideLoading')
         ElMessage.warning(msg || NETWORK_ERROR);
         return Promise.reject(msg || NETWORK_ERROR);
@@ -44,7 +44,7 @@ service.interceptors.response.use((res) => {
 //封装的核心函数
 function request(options) {
     options.method = options.method || 'get'
-    if(options.method.toLocaleUpperCase() == 'get'){
+    if(options.method.toLocaleUpperCase() === 'get'){
         options.params = options.data
     }
     //对mock的处理
@@ -53,7 +53,7 @@ function request(options) {
         isMock = options.mock
     }
     //对生产环境做处理
-    if(config.env == 'prod'){
+    if(config.env === 'prod'){
         //生产环境不让用mock
         service.defaults.baseURL = config.baseApi
     }else{

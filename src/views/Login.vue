@@ -42,21 +42,21 @@ export default {
       count: 0
     });
     const login = async () => {
-      if(loginParams.loginName == ''){
+      if(loginParams.loginName === ''){
         ElMessage.warning('请输入登录账号！');
         return;
       }
-      if(loginParams.password == ''){
+      if(loginParams.password === ''){
         ElMessage.warning('请输入登录密码！');
         return;
       }
       let res = await proxy.$api.login(loginParams)
       if(('status' in res)){
-        if(res.status == 2){
+        if(res.status === 2){
           loginParams.count =  loginParams.count + 1;
           ElMessage.warning('密码错误！');
           return;
-        }else if(res.status == 3){
+        }else if(res.status === 3){
           loginParams.count =  0;
           ElMessage.success('登录成功');
           window.sessionStorage.setItem('token',res.token);
@@ -64,10 +64,10 @@ export default {
           window.sessionStorage.setItem('studentName',res.studentName);
           window.sessionStorage.setItem('loginName',res.loginName);
           clickLogin();
-        }else if(res.status == 1){
+        }else if(res.status === 1){
           ElMessage.warning('账号不存在！');
           return;
-        }else if(res.status == 4){
+        }else if(res.status === 4){
           ElMessage.warning('账号已锁定！');
           return;
         }

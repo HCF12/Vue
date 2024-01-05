@@ -42,7 +42,7 @@
             :label="item.label"
             :width="item.width ? item.width : 180"
         >
-          <template  v-if="item.prop == 'operator'" v-slot="scope">
+          <template v-if="item.prop === 'operator'" v-slot="scope">
             <el-button link type="primary" size="small" @click="clickTable(scope.row)">
               <el-icon style="vertical-align: middle">
                 <Unlock/>
@@ -125,7 +125,7 @@ export default {
     }
     const clickTable = async (click) => {
       let res = await proxy.$api.unlock(click.studentId);
-      if (res == 1) {
+      if (res === 1) {
         ElMessage.success("解锁成功！");
         await getStudentUnlock();
       }else {
@@ -158,7 +158,7 @@ export default {
   border-radius: 5px;
 
   .factor {
-    font-family: 华文宋体 bold;
+    font-family: 华文宋体 bold,serif;
     color: #999999;
     font-weight: bold;
     font-size: 14px;
