@@ -148,11 +148,6 @@ export default {
         width: 260
       },
       {
-        prop: "subject",
-        label: "主题",
-        width: 200
-      },
-      {
         prop: "content",
         label: "正文",
         width: 400
