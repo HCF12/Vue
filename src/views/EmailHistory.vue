@@ -2,8 +2,8 @@
   <div id="mainer">
     <div id="header">
       <el-form :inline="true" :model="formInLine" class="factor">
-        <el-form-item label="批次号" style="margin: 10px;">
-          <el-input v-model="formInLine.batchId" type="text" style="width: 200px;">
+        <el-form-item style="margin: 10px;">
+          <el-input v-model="formInLine.batchId" placeholder="批次号" type="text" style="width: 240px;">
             <template #prefix>
               <el-icon class="el-input__icon">
                 <search/>
@@ -11,8 +11,8 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item label="客户编号" style="margin: 10px;">
-          <el-input v-model="formInLine.customerNo" type="text" style="width: 200px;">
+        <el-form-item style="margin: 10px;">
+          <el-input v-model="formInLine.customerNo" placeholder="客户编号" type="text" style="width: 240px;">
             <template #prefix>
               <el-icon class="el-input__icon">
                 <search/>
@@ -20,8 +20,8 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item label="客户姓名" style="margin: 10px;">
-          <el-input v-model="formInLine.customerName" class="w-50 m-2" type="text" style="width: 200px;">
+        <el-form-item style="margin: 10px;">
+          <el-input v-model="formInLine.customerName" placeholder="客户名称" class="w-50 m-2" type="text" style="width: 240px;">
             <template #prefix>
               <el-icon class="el-input__icon">
                 <search/>
@@ -29,8 +29,8 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item label="主题" style="margin: 10px;">
-          <el-input v-model="formInLine.subject" class="w-50 m-2" type="text" style="width: 190px;">
+        <el-form-item style="margin: 10px;">
+          <el-input v-model="formInLine.subject" placeholder="主题" class="w-50 m-2" type="text" style="width: 240px;">
             <template #prefix>
               <el-icon class="el-input__icon">
                 <search/>
@@ -38,37 +38,36 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item label="期望发送时间" style="margin: 10px;">
+        <el-form-item style="margin: 10px;">
           <el-date-picker
-              v-model="formInLine.startTime"
-              type="datetime"
-              placeholder="请输入开始时间"
+              v-model="formInLine.expectedTime"
+              type="datetimerange"
               format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss"
+              range-separator="至"
+              start-placeholder="请输入开始时间"
+              end-placeholder="请输入结束时间"
+              class="dateClass"
           />
         </el-form-item>
-        <el-form-item label="~" style="margin: 10px;">
-          <el-date-picker
-              v-model="formInLine.endTime"
-              type="datetime"
-              placeholder="请输入结束时间"
-              format="YYYY-MM-DD HH:mm:ss"
-          />
+        <el-form-item class="queryClass">
+          <el-link type="primary" @click="clear" style="font-size: 15px;font-weight: bold;font-family: 华文宋体 bold;">
+            <el-icon>
+              <RefreshLeft/>
+            </el-icon>
+            清空
+          </el-link>
+        </el-form-item>
+        <el-form-item class="queryClass">
+          <el-link type="primary" @click="handleSearch"
+                   style="font-size: 15px;font-weight: bold;font-family: 华文宋体 bold;">
+            <el-icon>
+              <search/>
+            </el-icon>
+            查询
+          </el-link>
         </el-form-item>
       </el-form>
-    </div>
-    <div>
-      <el-link type="primary" @click="clear" class="queryClass">
-        <el-icon>
-          <RefreshLeft/>
-        </el-icon>
-        清空
-      </el-link>
-      <el-link type="primary" @click="handleSearch" class="queryClass">
-        <el-icon>
-          <search/>
-        </el-icon>
-        查询
-      </el-link>
     </div>
     <div id="bod" style="display:flex;flex-direction: column;flex-grow: 1">
       <el-table
@@ -90,7 +89,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <div id="footer" style="display:flex;flex-direction:row;height:40px;">
+    <div id="footer" style="display:flex;flex-direction:row;height:40px; margin-top: 10px;">
       <div class="demonstration" style="flex-grow: 1;font-size: 12px;margin-top: 7px;">{{ params.size }}条记录</div>
       <el-pagination
           small
@@ -110,7 +109,6 @@
 import {reactive} from "vue-demi";
 import {computed, getCurrentInstance, onMounted, ref} from "vue";
 import {useStore} from "vuex";
-
 export default {
   setup() {
     const {proxy} = getCurrentInstance()
@@ -148,9 +146,9 @@ export default {
         width: 260
       },
       {
-        prop: "content",
-        label: "正文",
-        width: 400
+        prop: "subject",
+        label: "主题",
+        width: 200
       },
       {
         prop: "pie",
@@ -166,8 +164,7 @@ export default {
     const formInLine = reactive({
       customerNo: '',
       customerName: '',
-      startTime: '',
-      endTime: '',
+      expectedTime: [],
       subject: '',
       batchId: ''
     });
@@ -177,7 +174,7 @@ export default {
       prePage: 1,
       size: 0,
       pageNum: 1,
-      pageSize: 15,
+      pageSize: 10,
       customerNo: '',
       customerName: '',
       startTime: '',
@@ -186,7 +183,7 @@ export default {
       batchId: ''
     });
 
-    const getEmailGroupSendHisInfo = async () =>{
+    const getEmailGroupSendHisInfo = async () => {
       let res = await proxy.$api.getEmailGroupSendHisInfo(params);
       params.total = res.total;
       params.prePage = res.prePage
@@ -204,22 +201,22 @@ export default {
       params.customerNo = formInLine.customerNo;
       params.customerName = formInLine.customerName;
       params.batchId = formInLine.batchId;
-      params.startTime = formInLine.startTime;
-      params.endTime = formInLine.endTime;
+      params.startTime = formInLine.expectedTime[0];
+      console.log(params.startTime)
+      params.endTime = formInLine.expectedTime[1];
       params.subject = formInLine.subject;
       getEmailGroupSendHisInfo(params)
     }
 
-      //清空
+    //清空
     const clear = () => {
-      formInLine.startTime = '';
-      formInLine.endTime = '';
+      formInLine.expectedTime = [];
       formInLine.customerNo = '';
       formInLine.customerName = '';
       formInLine.batchId = '';
       formInLine.subject = '';
     }
-    onMounted( () => {
+    onMounted(() => {
       getEmailGroupSendHisInfo();
     });
 
@@ -231,7 +228,7 @@ export default {
       params,
       changePage,
       handleSearch,
-      clear
+      clear,
     }
   }
 }
@@ -241,7 +238,8 @@ export default {
 #header {
   justify-content: space-between;
   border-radius: 5px;
-  height: 50px  ;
+  height: 50px;
+
   .factor {
     font-family: 华文宋体 bold;
     color: #999999;
@@ -261,10 +259,9 @@ export default {
 
 
 .queryClass {
-  float: right; width: 4%;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: bold;
-  font-family: 华文宋体 bold;
+  padding: 7px;
+  float: right;
+  margin: auto 0;
 }
+
 </style>

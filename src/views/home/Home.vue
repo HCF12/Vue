@@ -15,28 +15,57 @@
             <P>上次登录地点：<span>{{LoginHisInfo.loginAddress}}</span></P>
           </div>
         </el-card>
-        <el-card shadow="hover" style="margin-top: 20px; height: 500px">
-          <el-table :data="tableData" height="270px">
-            <el-table-column
-                v-for="(v,k) in tableLabel"
-                :key="k"
-                :prop="k"
-                :label="v"
-            >
-            </el-table-column>
-          </el-table>
-        </el-card>
+        <el-tabs v-model="activeName" class="demo-tabs" style="margin-top: 20px; height: 500px;background-color: white">
+          <el-tab-pane label="消费明细" name="first">
+            <el-table :data="tableData" height="400px">
+              <el-table-column
+                  v-for="(v,k) in tableLabel"
+                  :key="k"
+                  :prop="k"
+                  :label="v"
+              >
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="类别汇总" name="second">
+            <el-table :data="tableDataOne" height="400px">
+              <el-table-column
+                  v-for="(v,k) in tableLabelOne"
+                  :key="k"
+                  :prop="k"
+                  :label="v"
+              >
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="日期汇总" name="third">
+            <el-table :data="tableDataTwo" height="400px">
+              <el-table-column
+                  v-for="(v,k) in tableLabelTwo"
+                  :key="k"
+                  :prop="k"
+                  :label="v"
+              >
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="日期类目汇总" name="fourth">
+            <el-table :data="tableDataThree" height="400px">
+              <el-table-column
+                  v-for="(v,k) in tableLabelThree"
+                  :key="k"
+                  :prop="k"
+                  :label="v"
+              >
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+        </el-tabs>
       </el-col>
       <el-col :span="16" style="margin-top: 5px">
-        <el-card style="height: 500px;background-color: #99CCCC">
-          <div ref="chinaMap" style="height: 500px"></div>
+        <el-card style="height: 810px;background-color: #99CCCC">
+          <div ref="chinaMap" style="height: 800px"></div>
         </el-card>
-        <div class="graph">
-          <el-card style="height: 260px">
-          </el-card>
-          <el-card style="height: 260px">
-          </el-card>
-        </div>
       </el-col>
     </el-row>
   </div>
@@ -46,26 +75,66 @@ import {defineComponent, getCurrentInstance, onMounted, ref} from 'vue'
 import chinaJson from '../../assets/js/china.json'
 import * as echarts from "echarts";
 import {reactive} from "vue-demi";
+import moment from "moment";
 
 export default defineComponent({
   setup() {
     //挂载全局api
     const {proxy} = getCurrentInstance()
+    const activeName = ref('first');
     let tableData = ref([]);
-    let countData = ref([]);
+    let tableDataOne = ref([]);
+    let tableDataTwo = ref([]);
+    let tableDataThree = ref([]);
     let LoginHisInfo = ref([]);
     let studentId = window.sessionStorage.getItem('studentId');
     let studentName = window.sessionStorage.getItem('studentName');
     let loginName = window.sessionStorage.getItem('loginName');
     const chinaMap = ref([]);
     const tableLabel = {
-      name: '课程',
-      todayBuy: '今日购买',
-      monthBuy: '本月购买',
-      totalBuy: '总购买'
+      consumptionDate: '消费日期',
+      consumptionType: '消费类目',
+      amount: '消费金额',
+      remark: '备注'
+    }
+    const tableLabelOne = {
+      consumptionType: '消费类目',
+      amountTotal: '消费金额'
+    }
+    const tableLabelTwo = {
+      consumptionDate: '消费日期',
+      amountTotal: '消费金额'
+    }
+    const tableLabelThree = {
+      consumptionDate: '消费日期',
+      consumptionType: '消费类目',
+      amountTotal: '消费金额'
     }
     const params = reactive({
       studentId: studentId
+    });
+
+    /**
+     * 获取当前系统日期
+     */
+    const getCurrentDate = () => {
+      const currentDate = new Date();
+      // 提取年、月、日并转换成两位数形式
+      const year = String(currentDate.getFullYear()).padStart(4, '0');
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      // 组合成完整的日期字符串
+      const formattedDate = moment(year+'-'+month+'-'+day).format('YYYY-MM-DD');
+      console.log(formattedDate);
+      return formattedDate;
+    }
+
+    const consumptionParam = reactive({
+      studentId: studentId,
+      pageNum : 1,
+      pageSize : 10,
+      startTime : getCurrentDate(),
+      endTime : getCurrentDate()
     });
 
     const getLoginHisByStudentId = async () => {
@@ -359,37 +428,53 @@ export default defineComponent({
       myChart.setOption(option)
     }
     //获取首页count数据
-    const getCountData = async () => {
-      let res = await proxy.$api.getCountData()
-      countData.value = res
+    const getUserSumConsumptionType = async () => {
+      let res = await proxy.$api.getUserSumConsumptionType(consumptionParam)
+      tableDataOne.value = res.list
+    }
+    const getUserSumConsumptionDate = async () => {
+      let res = await proxy.$api.getUserSumConsumptionDate(consumptionParam)
+      tableDataTwo.value = res.list
+    }
+    const getUserSumConsumptionDateAndType = async () => {
+      let res = await proxy.$api.getUserSumConsumptionDateAndType(consumptionParam)
+      tableDataThree.value = res.list
     }
     const getTableList = async () => {
-      //   await axios.get("https://www.fastmock.site/mock/ea3e0492b1b6a41623db3bec4f1b94f6/api/home/getData").then((res) => {
-      //     console.log(res)
-      //    if(res.data.code == 200){
-      //      tableData.value = res.data.data.tableData
-      //    }
-      //   })
-      let res = await proxy.$api.getTableData();
-      tableData.value = res.tableData
+      /*  await axios.get("https://www.fastmock.site/mock/ea3e0492b1b6a41623db3bec4f1b94f6/api/home/getData").then((res) => {
+          console.log(res)
+         if(res.data.code == 200){
+           tableData.value = res.data.data.tableData
+         }
+        })*/
+      let res = await proxy.$api.getTableData(consumptionParam);
+      tableData.value = res.list
     }
     onMounted(() => {
       getTableList();
-      getCountData();
+      getUserSumConsumptionType();
       drawChina();
       getLoginHisByStudentId();
+      getUserSumConsumptionDate();
+      getUserSumConsumptionDateAndType();
     })
 
     return {
       tableData,
       tableLabel,
-      countData,
+      tableLabelOne,
+      tableLabelTwo,
+      tableLabelThree,
+      tableDataOne,
+      tableDataTwo,
+      tableDataThree,
       chinaMap,
       params,
       LoginHisInfo,
       getLoginHisByStudentId,
       loginName,
-      studentName
+      studentName,
+      activeName
     }
   }
 })

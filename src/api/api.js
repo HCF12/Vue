@@ -6,10 +6,10 @@ export default {
     //home组件 左侧表格数据获取
     getTableData(params) {
         return request({
-            url: '/home/getData',
-            method: 'get',
+            url: '/consumption/getUserConsumptionList',
+            method: 'post',
             data: params,
-            mock: true
+            mock: false
         })
     },
     getMenuList(params) {
@@ -20,12 +20,28 @@ export default {
             mock: false
         })
     },
-    getCountData(params) {
+    getUserSumConsumptionType(params) {
         return request({
-            url: '/home/getCountData',
-            method: 'get',
+            url: '/consumption/getUserSumConsumptionType',
+            method: 'post',
             data: params,
-            mock: true
+            mock: false
+        })
+    },
+    getUserSumConsumptionDate(params) {
+        return request({
+            url: '/consumption/getUserSumConsumptionDate',
+            method: 'post',
+            data: params,
+            mock: false
+        })
+    },
+    getUserSumConsumptionDateAndType(params) {
+        return request({
+            url: '/consumption/getUserSumConsumptionDateAndType',
+            method: 'post',
+            data: params,
+            mock: false
         })
     },
     getEchartsData(params) {
@@ -206,5 +222,20 @@ export default {
             data: params,
             mock:false
         })
+    },
+    getConsumptionType(){
+        return request({
+            url: '/consumption/getConsumptionType',
+            method: 'get',
+            mock:false
+        });
+    },
+    saveConsumption(param) {
+        return request({
+            url: '/consumption/saveConsumption',
+            method: 'post',
+            data: param,
+            mock:false
+        });
     }
 }

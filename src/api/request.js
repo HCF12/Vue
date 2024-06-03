@@ -12,6 +12,7 @@ const service = axios.create({
 //在请求之前做一些事情
 service.interceptors.request.use((req) => {
     //store.commit("updateApiCount", "add");
+    console.log(req);
     store.state.isLoading=true
     store.commit('showLoading')
     return req
@@ -25,12 +26,13 @@ service.interceptors.request.use((req) => {
 //在请求之后做一些事情
 service.interceptors.response.use((res) => {
     const { code, data, msg } = res.data
+    console.log(res);
     //根据后端 协商 视情况而定
-    if(code === "200"){
+    if(code === "200" || code === 200){
         store.state.isLoading=false//loading加载动画
         store.commit('hideLoading')
         return data
-    }else if(code === "400"){
+    }else if(code === "400" || code === 400){
         store.commit('hideLoading')
         ElMessage.warning(msg || NETWORK_ERROR);
         return Promise.reject(msg || NETWORK_ERROR);
@@ -52,6 +54,7 @@ function request(options) {
     if(typeof options.mock !== 'undefined'){
         isMock = options.mock
     }
+    console.log(config.env);
     //对生产环境做处理
     if(config.env === 'prod'){
         //生产环境不让用mock

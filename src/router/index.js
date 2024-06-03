@@ -148,6 +148,40 @@ const routes = [
                     }
                 },
                 component: () => import('../views/handMovementSendEmail.vue')
+            },
+            {
+                path: '/bill',
+                name: 'bill',
+                beforeEnter: (to,from,next) => {
+                    if(store.state.isLogin){
+                        next();
+                    }else{
+                        const token = window.sessionStorage.getItem('token');
+                        if (!token) {
+                            next('/');
+                        } else {
+                            next();
+                        }
+                    }
+                },
+                component: () => import('../views/Bill.vue')
+            },
+            {
+                path: '/addBill',
+                name: 'addBill',
+                beforeEnter: (to,from,next) => {
+                    if(store.state.isLogin){
+                        next();
+                    }else{
+                        const token = window.sessionStorage.getItem('token');
+                        if (!token) {
+                            next('/');
+                        } else {
+                            next();
+                        }
+                    }
+                },
+                component: () => import('../views/AddBill.vue')
             }
         ]
     }

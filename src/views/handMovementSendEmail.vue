@@ -92,7 +92,7 @@ export default {
       bccMailbox: '',
       subject: '',
       sendContent: '',
-      enclosures : ''
+      enclosures : []
     });
 
     const sendEmail = async () => {

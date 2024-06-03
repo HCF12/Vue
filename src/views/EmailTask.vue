@@ -4,18 +4,13 @@
       <el-form :inline="true" :model="formInLine" class="factor">
         <el-form-item label="期望发送时间" style="margin: 10px;">
           <el-date-picker
-              v-model="formInLine.startTime"
-              type="datetime"
-              placeholder="请输入开始时间"
+              v-model="formInLine.expectedTime"
+              type="datetimerange"
               format="YYYY-MM-DD HH:mm:ss"
-          />
-        </el-form-item>
-        <el-form-item label="~" style="margin: 10px;">
-          <el-date-picker
-              v-model="formInLine.endTime"
-              type="datetime"
-              placeholder="请输入结束时间"
-              format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss"
+              range-separator="至"
+              start-placeholder="请输入开始时间"
+              end-placeholder="请输入结束时间"
           />
         </el-form-item>
         <div style="float: right;margin-top: 10px;">
@@ -82,8 +77,7 @@ export default {
     const formInLine = reactive({
       customerNo: '',
       customerName: '',
-      startTime: '',
-      endTime: '',
+      expectedTime: [],
       subject: '',
       batchId: ''
     });
@@ -166,8 +160,8 @@ export default {
       params.customerNo = formInLine.customerNo;
       params.customerName = formInLine.customerName;
       params.batchId = formInLine.batchId;
-      params.startTime = formInLine.startTime;
-      params.endTime = formInLine.endTime;
+      params.startTime = formInLine.expectedTime[0];
+      params.endTime = formInLine.expectedTime[1];
       params.subject = formInLine.subject;
       getAllEmailGroupSendTask(params)
     }

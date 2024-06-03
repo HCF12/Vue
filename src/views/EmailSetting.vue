@@ -451,8 +451,7 @@ export default {
     }
     //模板
     const getModelList = async () => {
-      let res = await proxy.$api.getModelList();
-      modeData.value = res;
+      modeData.value = await proxy.$api.getModelList();
     }
 
     const getModelContent = async () => {
@@ -463,7 +462,7 @@ export default {
 
     //内容框显隐
     const contentChange = () => {
-      if (addStuForm.isModel == 1) {
+      if (addStuForm.isModel === 1) {
         addStuForm.contentFlag = false;
         addStuForm.modelFlag = true;
       } else {
@@ -483,9 +482,9 @@ export default {
       addStuForm.expectTime = moment(addStuForm.expectTime).format('YYYY-MM-DD HH:mm:ss');
       console.log(addStuForm);
       let res = null;
-      if (type == 'insert') {
+      if (type === 'insert') {
         res = await proxy.$api.addEmailGroup(addStuForm);
-      } else if (type == 'update') {
+      } else if (type === 'update') {
         res = await proxy.$api.updEmailGroup(addStuForm);
       }
       console.log(res);
@@ -539,7 +538,7 @@ export default {
 
     const startConfiguration = async () => {
       let res = await proxy.$api.startConfiguration(batchIdList);
-      if (res == 1) {
+      if (res === 1) {
         ElMessage.success('邮件启用成功！');
       } else {
         ElMessage.error("邮件启用失败！");
@@ -549,7 +548,7 @@ export default {
 
     const runEmailConfiguration = async () => {
       let res = await proxy.$api.runEmailConfiguration(batchIdList);
-      if (res == 1) {
+      if (res === 1) {
         ElMessage.success('邮件执行成功！');
       } else {
         ElMessage.error("邮件执行失败！");
@@ -558,7 +557,7 @@ export default {
 
     const checkEmailConfiguration = async () => {
       let res = await proxy.$api.checkEmailConfiguration(batchIdList);
-      if (res == 1) {
+      if (res === 1) {
         ElMessage.success('邮件审核成功！');
       } else {
         ElMessage.error("邮件审核失败！");
@@ -567,7 +566,7 @@ export default {
 
     const batchDeleteEmailConfiguration = async () => {
       let res = await proxy.$api.batchDeleteEmailConfiguration(batchIdList);
-      if (res == 1) {
+      if (res === 1) {
         ElMessage.success('邮件删除成功！');
         await getEmailList();
       } else {

@@ -297,7 +297,7 @@ export default {
     }
 
     const changeStatus = (permission) => {
-      if (permission == true) {
+      if (permission === true) {
         params.maskPermission = 0
       } else {
         params.maskPermission = 1
