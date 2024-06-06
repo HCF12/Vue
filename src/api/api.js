@@ -134,7 +134,7 @@ export default {
             method: 'post',
             data: params,
             mock:false
-        });;
+        });
     },
     startConfiguration(params){
         return request({
