@@ -8,11 +8,11 @@ const env = import.meta.env.MODE || 'prod'
 
 const EnvConfig = {
     dev: {
-        baseApi: 'http://127.0.0.1:8085/',
+        baseApi: 'http://127.0.0.1:8085',
         mockApi: 'https://www.fastmock.site/mock/ea3e0492b1b6a41623db3bec4f1b94f6/api'
     },
     test: {
-        baseApi: 'http://127.0.0.1:8085/',
+        baseApi: 'http://127.0.0.1:8085',
         mockApi: 'https://www.fastmock.site/mock/ea3e0492b1b6a41623db3bec4f1b94f6/api'
     },
     prod: {

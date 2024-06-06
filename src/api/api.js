@@ -237,5 +237,12 @@ export default {
             data: param,
             mock:false
         });
+    },
+    downloadBill(param){
+        return request({
+            url: '/consumption/downloadBill/' + param.startTime + '/' + param.endTime + '/' + param.studentId,
+            method: 'get',
+            mock : false
+        });
     }
 }

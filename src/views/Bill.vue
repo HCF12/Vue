@@ -14,6 +14,10 @@
                   :value="item.value"
               />
             </el-select>
+            <el-link type="primary" @click="downloadBill">
+              <el-icon><Download /></el-icon>下载
+            </el-link>
+
           </el-form>
           <el-table :data="tableData" style="height: 720px">
             <el-table-column
@@ -165,6 +169,7 @@
 import {defineComponent, getCurrentInstance, onMounted, ref} from "vue";
 import {reactive} from "vue-demi";
 import moment from "moment";
+import config from "../config/index.js";
 
 export default defineComponent({
   setup() {
@@ -272,18 +277,57 @@ export default defineComponent({
       tableDataThree.value = res.list
     }
     const getTableList = async () => {
-      /*  await axios.get("https://www.fastmock.site/mock/ea3e0492b1b6a41623db3bec4f1b94f6/api/home/getData").then((res) => {
-          console.log(res)
-         if(res.data.code == 200){
-           tableData.value = res.data.data.tableData
-         }
-        })*/
       let res = await proxy.$api.getTableData(consumptionParam);
       consumptionParam.total = res.total;
       consumptionParam.prePage = res.prePage
       consumptionParam.size = res.size
       tableData.value = res.list
     }
+
+    /**
+     * 账单下载
+     * @returns {Promise<void>}
+     */
+    const downloadBill = async () => {
+      /*let res = await proxy.$api.downloadBill(consumptionParam);
+      downLoad(res);*/
+      window.open(config.baseApi + '/consumption/downloadBill/' + consumptionParam.startTime + '/' + consumptionParam.endTime + '/' + consumptionParam.studentId);
+    }
+
+    const downLoad = (res, fileName) => {
+      let name;
+      if (fileName) {
+        name = fileName;
+      } else {
+        if (res.headers["content-disposition"]) {
+          const contentDisposition = res.headers["content-disposition"].split("=");
+          name = (contentDisposition && decodeURI(contentDisposition[1])) || "";
+        }
+      }
+      const file = new File([res.data], res.data);
+      const href = URL.createObjectURL(file);
+      const aTag = document.createElement("a");
+      aTag.download = name;
+      aTag.target = "_blank";
+      aTag.href = href;
+      aTag.click();
+      URL.revokeObjectURL(href);
+    }
+
+    const now = ref(new Date());
+
+    const yearStartTime = () => {
+      const year = now.value.getFullYear();
+      const today = new Date();
+      const nextMonth = today.getMonth() + 1;
+      const day = new Date(year, nextMonth, 0).getDate();
+      const hours = 23;
+      const minutes = 59;
+      const seconds = 59;
+      const milliseconds = 999;
+      consumptionParam.startTime = moment(new Date(year, 0, 1)).format('YYYY-MM-DD');
+      consumptionParam.endTime = moment(new Date(year, nextMonth - 1, day, hours, minutes, seconds, milliseconds).getTime()).format('YYYY-MM-DD');
+    };
     const statusChange = () => {
       console.log(activeName.value);
       console.log(formInLine.status)
@@ -377,6 +421,7 @@ export default defineComponent({
       getUserSumConsumptionType();
       getUserSumConsumptionDate();
       getUserSumConsumptionDateAndType();
+      yearStartTime();
     })
     return {
       tabPosition,
@@ -399,7 +444,8 @@ export default defineComponent({
       activeName,
       changePage,
       consumptionParam,
-      activeNameChange
+      activeNameChange,
+      downloadBill
     }
   }
 });
