@@ -34,5 +34,9 @@
     "unplugin-auto-import": "^0.11.2",
     "unplugin-vue-components": "^0.22.7",
     "vite": "^3.1.0"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/HCF12/Vue.git",
+  "author": "yzh <hcf02aa@163.com>",
+  "license": "MIT"
 }
