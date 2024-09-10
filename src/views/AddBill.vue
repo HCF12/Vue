@@ -3,19 +3,14 @@
     <el-row>
       <el-col :span="24">
         <el-form-item label="消费日期：">
-          <el-date-picker
-              v-model="addStuForm.consumptionDate"
-              type="datetime"
-              format="YYYY-MM-DD HH:mm:ss"
-              value-format="YYYY-MM-DD HH:mm:ss"
-              @change="getdate()"
-              placeholder="请选择时间"/>
+          <el-input type="date" v-model="addStuForm.consumptionDate" placeholder="请选择交易日期" format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DD HH:mm:ss" change="getdate()" style="width: 90%;" />
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-form-item label="消费金额：" >
+        <el-form-item label="消费金额：">
           <el-input v-model="addStuForm.amount" class="w-50 m-2" type="text" style="width: 90%;"></el-input>
         </el-form-item>
       </el-col>
@@ -24,12 +19,7 @@
       <el-col :span="24">
         <el-form-item label="消费类型：">
           <el-select v-model="addStuForm.consumptionType" class="w-50 m-2" placeholder="请选择" style="width: 90%;">
-            <el-option
-                v-for="item in modeData"
-                :key="item.id"
-                :label="item.consumptionType"
-                :value="item.id"
-            />
+            <el-option v-for="item in modeData" :key="item.id" :label="item.consumptionType" :value="item.id" />
           </el-select>
         </el-form-item>
       </el-col>
@@ -54,27 +44,27 @@
 </template>
 
 <script>
-import {getCurrentInstance, onMounted, ref, shallowRef} from "vue";
-import {onBeforeUnmount, reactive} from "vue-demi";
-import {Editor, Toolbar} from "@wangeditor/editor-for-vue";
-import {ElMessage} from "element-plus";
+import { getCurrentInstance, onMounted, ref, shallowRef } from "vue";
+import { onBeforeUnmount, reactive } from "vue-demi";
+import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+import { ElMessage } from "element-plus";
 
 export default {
-  components: {Editor, Toolbar},
+  components: { Editor, Toolbar },
   setup() {
     //挂载全局api
-    const {proxy} = getCurrentInstance()
+    const { proxy } = getCurrentInstance()
     const editorRef = shallowRef()
     const valueHtml = ref('<p>hello 富文本编辑器</p>')
     const toolbarConfig = {};
     let modeData = ref([]);
     let studentId = window.sessionStorage.getItem('studentId');
     const addStuForm = reactive({
-      consumptionDate:'',
-      amount:'',
-      consumptionType:'',
-      remark:'',
-      consumptionBy:studentId
+      consumptionDate: '',
+      amount: '',
+      consumptionType: '',
+      remark: '',
+      consumptionBy: studentId
     });
     onBeforeUnmount(() => {
       const editor = editorRef.value
@@ -135,6 +125,4 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>

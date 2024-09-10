@@ -6,7 +6,7 @@
           <el-input v-model="formInLine.batchId" placeholder="批次号" type="text" style="width: 240px;">
             <template #prefix>
               <el-icon class="el-input__icon">
-                <search/>
+                <search />
               </el-icon>
             </template>
           </el-input>
@@ -15,16 +15,17 @@
           <el-input v-model="formInLine.customerNo" placeholder="客户编号" type="text" style="width: 240px;">
             <template #prefix>
               <el-icon class="el-input__icon">
-                <search/>
+                <search />
               </el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item style="margin: 10px;">
-          <el-input v-model="formInLine.customerName" placeholder="客户名称" class="w-50 m-2" type="text" style="width: 240px;">
+          <el-input v-model="formInLine.customerName" placeholder="客户名称" class="w-50 m-2" type="text"
+            style="width: 240px;">
             <template #prefix>
               <el-icon class="el-input__icon">
-                <search/>
+                <search />
               </el-icon>
             </template>
           </el-input>
@@ -33,85 +34,46 @@
           <el-input v-model="formInLine.subject" placeholder="主题" class="w-50 m-2" type="text" style="width: 240px;">
             <template #prefix>
               <el-icon class="el-input__icon">
-                <search/>
+                <search />
               </el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item style="margin: 10px;">
-          <el-date-picker
-              v-model="formInLine.expectedTime"
-              type="datetimerange"
-              format="YYYY-MM-DD HH:mm:ss"
-              value-format="YYYY-MM-DD HH:mm:ss"
-              range-separator="至"
-              start-placeholder="请输入开始时间"
-              end-placeholder="请输入结束时间"
-              class="dateClass"
-          />
+          <el-date-picker v-model="formInLine.expectedTime" type="datetimerange" format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DD HH:mm:ss" range-separator="至" start-placeholder="请输入开始时间" end-placeholder="请输入结束时间"
+            class="dateClass" />
         </el-form-item>
-        <el-form-item class="queryClass">
-          <el-link type="primary" @click="clear" style="font-size: 15px;font-weight: bold;font-family: 华文宋体 bold;">
-            <el-icon>
-              <RefreshLeft/>
-            </el-icon>
-            清空
-          </el-link>
-        </el-form-item>
-        <el-form-item class="queryClass">
-          <el-link type="primary" @click="handleSearch"
-                   style="font-size: 15px;font-weight: bold;font-family: 华文宋体 bold;">
-            <el-icon>
-              <search/>
-            </el-icon>
-            查询
-          </el-link>
+        <el-form-item style="float: right;margin: 20px;">
+          <el-button type="success" @click="handleSearch" style="width: 100px;">查询</el-button>
+          <el-button type="default" @click="clear" style="width: 100px;">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div id="bod" style="display:flex;flex-direction: column;flex-grow: 1">
-      <el-table
-          v-loading="loading"
-          ref="multipleTable"
-          :data="tableData"
-          :stripe="true"
-          :fit="true"
-          style="border-radius: 5px;flex-grow: 1;"
-          highlight-current-row>
-        <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column
-            v-for="item in tableLabel"
-            :key="item.prop"
-            :prop="item.prop"
-            :label="item.label"
-            :width="item.width ? item.width : 130"
-        >
+      <el-table v-loading="loading" ref="multipleTable" :data="tableData" :stripe="true" :fit="true"
+        style="border-radius: 5px;flex-grow: 1;" highlight-current-row>
+        <el-table-column type="selection" width="55" align="center" />
+        <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label"
+          :width="item.width ? item.width : 130">
         </el-table-column>
       </el-table>
     </div>
-    <div id="footer" style="display:flex;flex-direction:row;height:40px; margin-top: 10px;">
-      <div class="demonstration" style="flex-grow: 1;font-size: 12px;margin-top: 7px;">{{ params.size }}条记录</div>
-      <el-pagination
-          small
-          background
-          layout="prev, pager, next"
-          :total="params.total"
-          class="pager mt-4"
-          @current-change="changePage"
-          :current-page="params.pageNum"
-          :page-size="params.pageSize"
-      />
+    <div id="footer">
+      <div class="demonstration" style="flex-grow: 1;font-size: 12px;">{{ params.size }}条记录</div>
+      <el-pagination small background layout="prev, pager, next" :total="params.total" class="pager mt-4"
+        @current-change="changePage" :current-page="params.pageNum" :page-size="params.pageSize" />
     </div>
   </div>
 </template>
 
 <script>
-import {reactive} from "vue-demi";
-import {computed, getCurrentInstance, onMounted, ref} from "vue";
-import {useStore} from "vuex";
+import { reactive } from "vue-demi";
+import { computed, getCurrentInstance, onMounted, ref } from "vue";
+import { useStore } from "vuex";
 export default {
   setup() {
-    const {proxy} = getCurrentInstance()
+    const { proxy } = getCurrentInstance()
     const store = useStore();
     let tableData = ref([]);
     const tableLabel = reactive([
@@ -249,19 +211,23 @@ export default {
 }
 
 #mainer {
-  padding: 5px;
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 99%;
-  height: 98%;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
 }
 
+#footer {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
 
 .queryClass {
   padding: 7px;
   float: right;
   margin: auto 0;
 }
-
 </style>

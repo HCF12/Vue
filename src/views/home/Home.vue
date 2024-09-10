@@ -15,7 +15,7 @@
             <P>上次登录地点：<span>{{LoginHisInfo.loginAddress}}</span></P>
           </div>
         </el-card>
-        <el-tabs v-model="activeName" class="demo-tabs" style="margin-top: 20px; height: 500px;background-color: white">
+        <el-tabs v-model="activeName" class="demo-tabs" style="margin-top: 20px; height: 468px;background-color: white">
           <el-tab-pane label="消费明细" name="first">
             <el-table :data="tableData" height="400px">
               <el-table-column
@@ -63,8 +63,8 @@
         </el-tabs>
       </el-col>
       <el-col :span="16" style="margin-top: 5px">
-        <el-card style="height: 810px;background-color: #99CCCC">
-          <div ref="chinaMap" style="height: 800px"></div>
+        <el-card style="height: 780px;background-color: #99CCCC">
+          <div ref="chinaMap" style="height: 750px"></div>
         </el-card>
       </el-col>
     </el-row>

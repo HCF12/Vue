@@ -6,37 +6,20 @@
           <el-input v-model="formInLine.studentName" class="w-50 m-2" type="text" style="width: 200px;">
             <template #prefix>
               <el-icon class="el-input__icon">
-                <search/>
+                <search />
               </el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item label="是否掩码">
-          <el-switch
-              v-model="formInLine.permission"
-              class="ml-2"
-              inline-prompt
-              style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-              active-text="Y"
-              inactive-text="N"
-              @change="changeStatus"
-          />
+          <el-switch v-model="formInLine.permission" class="ml-2" inline-prompt
+            style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949" active-text="Y" inactive-text="N"
+            @change="changeStatus" />
         </el-form-item>
         <el-form-item style="float: right;">
-          <el-link type="primary" @click="handleSearch">
-            <el-icon>
-              <search/>
-            </el-icon>
-            查询
-          </el-link>
-        </el-form-item>
-        <el-form-item label-width="80%" style="float: right;">
-          <el-link type="primary" @click="dialogFormVisible.flag = true">
-            <el-icon>
-              <Plus/>
-            </el-icon>
-            新增
-          </el-link>
+          <el-button type="success" @click="handleSearch" style="width: 100px;">查询</el-button>
+          <el-button type="default" @click="resetQueryParams" style="width: 100px;">重置</el-button>
+          <el-button type="primary" @click="dialogFormVisible.flag = true" style="width: 100px;">新增</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -53,12 +36,7 @@
           <el-col :span="24">
             <el-form-item label="性别：" style="display: flex">
               <el-select v-model="addStuForm.gender" class="m-2" placeholder="请选择" style="width: 100%;">
-                <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                />
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -73,8 +51,7 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="地址：" style="display: flex">
-              <el-input v-model="addStuForm.address" class="w-50 m-2" :rows="3"
-                        type="textarea"></el-input>
+              <el-input v-model="addStuForm.address" class="w-50 m-2" :rows="3" type="textarea"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -82,13 +59,9 @@
           <el-col :span="24">
             <el-form-item label="年级：" style="display: flex">
               <el-select v-model="addStuForm.gradeId" class="w-50 m-2" placeholder="请选择" style="width: 100%;"
-                         @change="getClassList">
-                <el-option
-                    v-for="item in gradeData"
-                    :key="item.gradeId"
-                    :label="item.gradeName"
-                    :value="item.gradeId"
-                />
+                @change="getClassList">
+                <el-option v-for="item in gradeData" :key="item.gradeId" :label="item.gradeName"
+                  :value="item.gradeId" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -97,13 +70,9 @@
           <el-col :span="24">
             <el-form-item label="班级：" style="display:flex;">
               <el-select v-model="addStuForm.classId" class="el-select-v2__wrapper" placeholder="请选择"
-                         style="width: 100%;">
-                <el-option
-                    v-for="item in classData"
-                    :key="item.classId"
-                    :label="item.className"
-                    :value="item.classId"
-                />
+                style="width: 100%;">
+                <el-option v-for="item in classData" :key="item.classId" :label="item.className"
+                  :value="item.classId" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -137,59 +106,33 @@
       </el-form>
     </el-dialog>
     <div class="table" style="display: flex;flex-direction: column;flex-grow: 1">
-      <el-table
-          v-loading="loading"
-          ref="multipleTable"
-          :data="tableData"
-          @selection-change="handleSelectionChange1"
-          :stripe="true"
-          :fit="true"
-          style="border-radius: 5px;flex-grow: 1"
-          highlight-current-row>
-        <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column
-            v-for="item in tableLabel"
-            :key="item.prop"
-            :prop="item.prop"
-            :label="item.label"
-            :width="item.width ? item.width : 190"
-        >
+      <el-table v-loading="loading" ref="multipleTable" :data="tableData" @selection-change="handleSelectionChange1"
+        :stripe="true" :fit="true" style="border-radius: 5px;flex-grow: 1" highlight-current-row>
+        <el-table-column type="selection" width="55" align="center" />
+        <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label"
+          :width="item.width ? item.width : 190">
         </el-table-column>
       </el-table>
-      <div class="demo-pagination-block">
-        <el-row style="display: flex;background-color: white;padding: 5px;border-radius: 5px">
-          <el-col :span="2">
-            <div class="demonstration" style="margin-top: 7px;font-size: 12px">{{ params.size }}条记录</div>
-          </el-col>
-          <el-col :span="22">
-            <el-pagination
-                small
-                background
-                layout="prev, pager, next"
-                :total="params.total"
-                class="pager mt-4"
-                @current-change="changePage"
-                :current-page="params.pageNum"
-                :page-size="params.pageSize"
-            />
-          </el-col>
-        </el-row>
-      </div>
+      <div id="footer">
+      <div class="demonstration" style="flex-grow: 1;font-size: 12px;">{{ params.size }}条记录</div>
+      <el-pagination small background layout="prev, pager, next" :total="params.total" class="pager mt-4"
+        @current-change="changePage" :current-page="params.pageNum" :page-size="params.pageSize" />
+    </div>
     </div>
   </div>
 </template>
 
 <script>
 
-import {getCurrentInstance, onMounted, ref, reactive, computed, nextTick} from "vue";
-import {useStore} from "vuex";
-import {ElMessage} from "element-plus";
+import { getCurrentInstance, onMounted, ref, reactive, computed, nextTick } from "vue";
+import { useStore } from "vuex";
+import { ElMessage } from "element-plus";
 
 export default {
   name: "User",
   setup() {
     //挂载全局api
-    const {proxy} = getCurrentInstance()
+    const { proxy } = getCurrentInstance()
     let tableData = ref([]);
     const store = useStore()
     const dialogFormVisible = reactive({
@@ -348,6 +291,11 @@ export default {
         this.$refs.multipleTable.setCurrentRow(tableData.value[0]);
       }
     }
+    //重置
+    let resetQueryParams = () => {
+      formInLine.permission = 1;
+      formInLine.studentName = '';
+    }
 
     onMounted(() => {
       getStudentList(params);
@@ -383,9 +331,6 @@ export default {
 
 <style lang="less" scoped>
 .user-header {
-  background-color: white;
-  border-radius: 5px;
-
   .factor {
     font-family: 华文宋体 bold;
     color: #999999;
@@ -419,8 +364,15 @@ export default {
 }
 
 .mainClass {
-  padding: 5px;
-  width: 99%;
-  height: 98.5%;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: white;
+}
+
+#footer {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
 }
 </style>

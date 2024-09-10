@@ -54,7 +54,6 @@ function request(options) {
     if(typeof options.mock !== 'undefined'){
         isMock = options.mock
     }
-    console.log(config.env);
     //对生产环境做处理
     if(config.env === 'prod'){
         //生产环境不让用mock

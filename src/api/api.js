@@ -1,6 +1,7 @@
 /**
  * 整个项目api的管理
  */
+import { mock } from "mockjs";
 import request from "./request.js";
 export default {
     //home组件 左侧表格数据获取
@@ -52,7 +53,7 @@ export default {
             mock: true
         })
     },
-    getStudentList(params){
+    getStudentList(params) {
         return request({
             url: '/studentManager/getStudent',
             method: 'post',
@@ -60,22 +61,22 @@ export default {
             mock: false
         })
     },
-    getGradeList(params){
+    getGradeList(params) {
         return request({
             url: '/grade/getGrade',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         })
     },
-    getClassList(params){
+    getClassList(params) {
         return request({
-            url: '/stuClass/getClassByGrade/'+ params.gradeId,
+            url: '/stuClass/getClassByGrade/' + params.gradeId,
             method: 'get',
-            mock:false
+            mock: false
         })
     },
-    addStudent(params){
+    addStudent(params) {
         return request({
             url: '/studentManager/register',
             method: 'post',
@@ -83,151 +84,151 @@ export default {
             mock: false
         })
     },
-    login(params){
-      return request({
-          url: '/studentManager/login/',
-          method: 'post',
-          data: params,
-          mock:false
-      })
+    login(params) {
+        return request({
+            url: '/studentManager/login/',
+            method: 'post',
+            data: params,
+            mock: false
+        })
     },
-    getStudentUnlock(params){
+    getStudentUnlock(params) {
         return request({
             url: '/studentManager/getStudentUnlock/',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         })
     },
-    unlock(params){
+    unlock(params) {
         return request({
             url: '/studentManager/unlock/' + params,
             method: 'get',
-            mock:false
+            mock: false
         })
     },
-    getModelList(){
+    getModelList() {
         return request({
             url: '/template/getTemplate',
             method: 'get',
             mock: false
         })
     },
-    getModelContent(params){
+    getModelContent(params) {
         return request({
-            url: '/template/getTemplateContent/'+ params,
+            url: '/template/getTemplateContent/' + params,
             method: 'get',
-            mock:false
+            mock: false
         })
     },
-    addEmailGroup(params){
+    addEmailGroup(params) {
         return request({
             url: '/emailGroup/addEmailGroup',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    getEmailList(params){
+    getEmailList(params) {
         return request({
             url: '/emailGroup/getEmailList',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    startConfiguration(params){
+    startConfiguration(params) {
         return request({
             url: '/emailGroup/startConfiguration/' + params,
             method: 'get',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    runEmailConfiguration(params){
+    runEmailConfiguration(params) {
         return request({
             url: '/emailGroup/runEmailConfiguration/' + params,
             method: 'get',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    checkEmailConfiguration(params){
+    checkEmailConfiguration(params) {
         return request({
             url: '/emailGroup/checkEmailConfiguration/' + params,
             method: 'get',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    getCronExpression(params){
+    getCronExpression(params) {
         return request({
             url: '/quartz/list',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    sendEmail(params){
+    sendEmail(params) {
         return request({
             url: '/testEmail/sendEmail',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    getLoginHisByStudentId(params){
+    getLoginHisByStudentId(params) {
         return request({
             url: '/loginHis/getLoginHisByStudentId/' + params,
             method: 'get',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    batchDeleteEmailConfiguration(params){
+    batchDeleteEmailConfiguration(params) {
         return request({
             url: '/emailGroup/batchDeleteEmailConfiguration/' + params,
             method: 'get',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    getEmailGroupInfoById(params){
+    getEmailGroupInfoById(params) {
         return request({
             url: '/emailGroup/getEmailGroupInfoById/' + params,
             method: 'get',
-            mock:false
+            mock: false
         });
     },
-    updEmailGroup(params){
+    updEmailGroup(params) {
         return request({
             url: '/emailGroup/updEmailGroup',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    getEmailGroupSendHisInfo(params){
+    getEmailGroupSendHisInfo(params) {
         return request({
             url: '/emailHis/getEmailGroupSendHisInfo',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         });
     },
-    getAllEmailGroupSendTask(params){
+    getAllEmailGroupSendTask(params) {
         return request({
             url: '/email/getAllEmailGroupSendTask',
             method: 'post',
             data: params,
-            mock:false
+            mock: false
         })
     },
-    getConsumptionType(){
+    getConsumptionType() {
         return request({
             url: '/consumption/getConsumptionType',
             method: 'get',
-            mock:false
+            mock: false
         });
     },
     saveConsumption(param) {
@@ -235,14 +236,38 @@ export default {
             url: '/consumption/saveConsumption',
             method: 'post',
             data: param,
-            mock:false
+            mock: false
         });
     },
-    downloadBill(param){
+    downloadBill(param) {
         return request({
             url: '/consumption/downloadBill/' + param.startTime + '/' + param.endTime + '/' + param.studentId,
             method: 'get',
-            mock : false
+            mock: false
+        });
+    },
+    getMoneyManagementList(param) {
+        return request({
+            url: '/transaction/getMoneyManagementList',
+            method: 'post',
+            data: param,
+            mock: false
+        });
+    },
+    addMoneyTransactionByDeposit(params) {
+        return request({
+            url: '/transaction/addMoneyTransactionByDeposit',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    addMoneyTransactionByDraw(params) {
+        return request({
+            url: '/transaction/addMoneyTransactionByDraw',
+            method: 'post',
+            data: params,
+            mock: false
         });
     }
 }

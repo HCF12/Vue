@@ -126,7 +126,9 @@ export default {
 
 <style lang="less" scoped>
 #mainer {
-  padding: 5px;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
 }
 .formStyle{
   font-weight: bold;

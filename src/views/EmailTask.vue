@@ -2,77 +2,42 @@
   <div id="mainer">
     <div id="header">
       <el-form :inline="true" :model="formInLine" class="factor">
-        <el-form-item label="期望发送时间" style="margin: 10px;">
-          <el-date-picker
-              v-model="formInLine.expectedTime"
-              type="datetimerange"
-              format="YYYY-MM-DD HH:mm:ss"
-              value-format="YYYY-MM-DD HH:mm:ss"
-              range-separator="至"
-              start-placeholder="请输入开始时间"
-              end-placeholder="请输入结束时间"
-          />
+        <el-form-item label="期望发送时间" style="margin: 15px 0px 10px 30px;">
+          <el-date-picker v-model="formInLine.expectedTime" type="datetimerange" format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DD HH:mm:ss" range-separator="至" start-placeholder="请输入开始时间"
+            end-placeholder="请输入结束时间" />
         </el-form-item>
-        <div style="float: right;margin-top: 10px;">
-          <el-link type="primary" @click="clear" class="queryClass">
-            <el-icon>
-              <RefreshLeft/>
-            </el-icon>
-            清空
-          </el-link>
-          <el-link type="primary" @click="handleSearch" class="queryClass">
-            <el-icon>
-              <search/>
-            </el-icon>
-            查询
-          </el-link>
-        </div>
+        <el-form-item style="float: right;margin: 15px 10px 10px 30px;">
+          <el-button type="success" @click="handleSearch" style="width: 100px;">查询</el-button>
+          <el-button type="default" @click="clear" style="width: 100px;">重置</el-button>
+        </el-form-item>
       </el-form>
     </div>
     <div id="table">
-      <el-table
-          v-loading="loading"
-          ref="multipleTable"
-          :data="tableData"
-          :stripe="true"
-          :fit="true"
-          style="border-radius: 5px;flex-grow: 1;"
-          highlight-current-row>
-        <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column
-            v-for="item in tableLabel"
-            :key="item.prop"
-            :prop="item.prop"
-            :label="item.label"
-            :width="item.width ? item.width : 130"
-        >
+      <el-table v-loading="loading" ref="multipleTable" :data="tableData" :stripe="true" :fit="true"
+        style="border-radius: 5px;flex-grow: 1;" highlight-current-row>
+        <el-table-column type="selection" width="55" align="center" />
+        <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label"
+          :width="item.width ? item.width : 130">
         </el-table-column>
       </el-table>
     </div>
-    <div id="footer" style="display:flex;flex-direction:row;height:40px;">
-      <div class="demonstration" style="flex-grow: 1;font-size: 12px;margin-top: 7px;">{{ params.size }}条记录</div>
-      <el-pagination
-          small
-          background
-          layout="prev, pager, next"
-          :total="params.total"
-          class="pager mt-4"
-          @current-change="changePage"
-          :current-page="params.pageNum"
-          :page-size="params.pageSize"
-      />
+    <div id="footer">
+      <div class="demonstration" style="flex-grow: 1;font-size: 12px;">{{ params.size }}条记录</div>
+      <el-pagination small background layout="prev, pager, next" :total="params.total" class="pager mt-4"
+        @current-change="changePage" :current-page="params.pageNum" :page-size="params.pageSize" />
     </div>
   </div>
 </template>
 
 <script>
-import {computed, getCurrentInstance, onMounted, ref} from "vue";
-import {reactive} from "vue-demi";
-import {useStore} from "vuex";
+import { computed, getCurrentInstance, onMounted, ref } from "vue";
+import { reactive } from "vue-demi";
+import { useStore } from "vuex";
 
 export default {
   setup() {
-    const {proxy} = getCurrentInstance();
+    const { proxy } = getCurrentInstance();
     const store = useStore();
     const formInLine = reactive({
       customerNo: '',
@@ -194,12 +159,12 @@ export default {
 
 <style lang="less" scoped>
 #mainer {
-  padding: 5px;
-  width: 99%;
-  height: 98%;
+  width: 100%;
+  height: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
 }
 
 #header {
@@ -212,6 +177,13 @@ export default {
   flex-direction: column;
   flex-grow: 1;
 }
+
+#footer {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
 .queryClass {
   margin-right: 7px;
   font-size: 15px;

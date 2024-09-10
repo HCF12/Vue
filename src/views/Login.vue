@@ -8,13 +8,13 @@
       </template>
       <div class="login-container">
         <el-form :model="loginParams" label-width="auto">
-          <el-form-item label="账号" style="display: flex;">
+          <el-form-item label-width="80px" label="账号" style="display: flex;">
             <el-input v-model="loginParams.loginName" class="w-50 m-2" type="text" placeholder="请输入账号"></el-input>
           </el-form-item>
-          <el-form-item label="密码" style="display: flex;">
+          <el-form-item label-width="80px" label="密码" style="display: flex;">
             <el-input v-model="loginParams.password" class="w-50 m-2" type="password" placeholder="请输入密码"></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item label-width="80px">
             <el-button type="success" style="width: 100%;font-weight: bold" @click="login">确认</el-button>
           </el-form-item>
         </el-form>

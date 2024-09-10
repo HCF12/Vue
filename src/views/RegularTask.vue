@@ -6,7 +6,7 @@
           <el-input v-model="formInLine.jobName" type="text" style="width: 200px;">
             <template #prefix>
               <el-icon class="el-input__icon">
-                <search/>
+                <search />
               </el-icon>
             </template>
           </el-input>
@@ -15,64 +15,41 @@
           <el-input v-model="formInLine.description" class="w-50 m-2" type="text" style="width: 200px;">
             <template #prefix>
               <el-icon class="el-input__icon">
-                <search/>
+                <search />
               </el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item class="addBtn">
-          <el-link type="primary" @click="handleSearch">
-            <el-icon>
-              <search/>
-            </el-icon>
-            查询
-          </el-link>
+          <el-button type="success" @click="handleSearch" style="width: 100px;">查询</el-button>
+          <el-button type="default" @click="clear" style="width: 100px;">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div id="table">
-      <el-table
-          v-loading="loading"
-          ref="multipleTable"
-          :data="tableData"
-          :stripe="true"
-          :fit="true"
-          style="border-radius: 5px;flex-grow: 1;"
-          highlight-current-row>
-        <el-table-column
-            v-for="item in tableLabel"
-            :key="item.prop"
-            :prop="item.prop"
-            :label="item.label"
-            :width="item.width ? item.width : 130"
-        >
+      <el-table v-loading="loading" ref="multipleTable" :data="tableData" :stripe="true" :fit="true"
+        style="border-radius: 5px;flex-grow: 1;" highlight-current-row>
+        <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label"
+          :width="item.width ? item.width : 130">
         </el-table-column>
       </el-table>
-      <div class="demo-pagination-block">
-        <div class="demonstration" style="margin-top: 7px;font-size: 12px;flex-grow: 1;">{{ params.size }}条记录</div>
-        <el-pagination
-            small
-            background
-            layout="prev, pager, next"
-            :total="params.total"
-            class="pager mt-4"
-            @current-change="changePage"
-            :current-page="params.pageNum"
-            :page-size="params.pageSize"
-        />
+      <div id="footer">
+        <div class="demonstration" style="flex-grow: 1;font-size: 12px;">{{ params.size }}条记录</div>
+        <el-pagination small background layout="prev, pager, next" :total="params.total" class="pager mt-4"
+          @current-change="changePage" :current-page="params.pageNum" :page-size="params.pageSize" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {reactive} from "vue-demi";
-import {useStore} from "vuex";
-import {computed, getCurrentInstance, onMounted, onUnmounted, ref} from "vue";
+import { reactive } from "vue-demi";
+import { useStore } from "vuex";
+import { computed, getCurrentInstance, onMounted, onUnmounted, ref } from "vue";
 
 export default {
   setup() {
-    const {proxy} = getCurrentInstance()
+    const { proxy } = getCurrentInstance()
     let tableData = ref([]);
     let intervalId;
     const store = useStore();
@@ -153,6 +130,12 @@ export default {
       getCronExpression(params)
     }
 
+    //清空
+    const clear = () => {
+      formInLine.jobName = '';
+      formInLine.description = '';
+    }
+
     onMounted(() => {
       intervalId = setInterval(() => {
         getCronExpression(params)
@@ -171,7 +154,8 @@ export default {
       formInLine,
       getCronExpression,
       changePage,
-      handleSearch
+      handleSearch,
+      clear
     }
   }
 }
@@ -198,16 +182,23 @@ export default {
 }
 
 .mainClass {
-  width: 99%;
-  height: 98%;
-  padding: 5px;
+  width: 100%;
+  height: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
+}
+
+#footer {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
 }
 
 .addBtn {
   float: right;
+  margin: 10px;
 }
 
 #table {
@@ -215,6 +206,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 .demo-pagination-block {
   display: flex;
   flex-direction: row;
