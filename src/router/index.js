@@ -199,6 +199,23 @@ const routes = [
                     }
                 },
                 component: () => import('../views/moneyTransaction.vue')
+            },
+            {
+                path: '/product',
+                name: 'product',
+                beforeEnter: (to,from,next) => {
+                    if(store.state.isLogin){
+                        next();
+                    }else{
+                        const token = window.sessionStorage.getItem('token');
+                        if (!token) {
+                            next('/');
+                        } else {
+                            next();
+                        }
+                    }
+                },
+                component: () => import('../views/Product.vue')
             }
         ]
     }

@@ -269,5 +269,59 @@ export default {
             data: params,
             mock: false
         });
-    }
+    },
+    getProductList(params) {
+        return request({
+            url: '/product/getProductList',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    addProduct(params) {
+        return request({
+            url: '/product/addProduct',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    delProduct(params) {
+        return request({
+            url: '/product/delProduct/' + params,
+            method: 'get',
+            mock: false
+        });
+    },
+    getProductById(params) {
+        return request({
+            url: '/product/getProductById/' + params,
+            method: 'get',
+            mock: false
+        });
+    },
+    updProduct(params) {
+        return request({
+            url: '/product/updProduct',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    setProductPriceBatch(params) {
+        return request({
+            url: '/product/setProductPriceBatch',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    setProductStockBatch(params) {
+        return request({
+            url: '/product/setProductStockBatch',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
 }

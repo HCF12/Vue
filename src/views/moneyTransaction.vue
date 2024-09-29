@@ -175,7 +175,7 @@ export default {
         //分页值改变
         let changePage = (page) => {
             param.pageNum = page;
-            getAllEmailGroupSendTask();
+            getMoneyManagementList();
         }
         //数据保存
         let save = () => {
@@ -205,7 +205,7 @@ export default {
         //清除表单数据
         let clearForm = () => {
             transactionForm.remark = '';
-            transactionForm.transactionAmount = '';
+            transactionForm.transactionAmount = 0;
             transactionForm.transactionDate = '';
             transactionForm.transactionType = '';
         }

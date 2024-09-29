@@ -37,7 +37,7 @@
           />
         </el-form-item>
         <el-form-item label="状态" style="margin: 10px;">
-          <el-select v-model="formInLine.status" class="w-50 m-2" placeholder="请选择">
+          <el-select v-model="formInLine.status" class="w-50 m-2" placeholder="请选择" style="width: 200px;">
             <el-option
                 v-for="item in isStartOption"
                 :key="item.value"
@@ -667,28 +667,27 @@ export default {
 }
 
 //弹框头部
-::v-deep .el-dialog__header {
+/*::v-deep .el-dialog__header {
   --el-text-color-primary: #1EFFFF;
   --el-text-color-regular: #fff;
   padding: 0 !important;
   width: 100%;
   height: 64px;
   background: #7986CB;
-}
+}*/
 
 //弹框标题
-::v-deep .el-dialog__title {
+/* ::v-deep .el-dialog__title {
   margin-left: 24px;
   line-height: 64px;
-}
+} */
 
 .mainClass {
-  padding: 5px;
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 99%;
-  height: 98%;
+  width: 100%;
+  height: 100%;
 }
 
 #table {

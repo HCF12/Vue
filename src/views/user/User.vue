@@ -23,7 +23,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-dialog v-model="dialogFormVisible.flag" :close-on-click-modal="false" title="人员新增">
+    <el-dialog v-model="dialogFormVisible.flag" :close-on-click-modal="false" width="700px" title="人员新增" align-center draggable>
       <el-form :model="addStuForm" class="addForm" label-width="auto">
         <el-row>
           <el-col :span="24">
@@ -55,7 +55,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <!-- <el-row>
           <el-col :span="24">
             <el-form-item label="年级：" style="display: flex">
               <el-select v-model="addStuForm.gradeId" class="w-50 m-2" placeholder="请选择" style="width: 100%;"
@@ -76,7 +76,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
+        </el-row> -->
         <el-row>
           <el-col :span="24">
             <el-form-item label="登录名：" style="display: flex">
@@ -93,7 +93,7 @@
         </el-row>
         <el-row>
           <el-col :span="22">
-            <el-form-item style="display: flex;float: right">
+            <el-form-item style="display: flex;margin-right: 10px; float: right">
               <el-button :plain="true" type="primary" style="width: 100%" @click="insertEnter">确认</el-button>
             </el-form-item>
           </el-col>
@@ -110,7 +110,7 @@
         :stripe="true" :fit="true" style="border-radius: 5px;flex-grow: 1" highlight-current-row>
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label"
-          :width="item.width ? item.width : 190">
+          :width="item.width ? item.width : 240">
         </el-table-column>
       </el-table>
       <div id="footer">
@@ -154,20 +154,20 @@ export default {
       {
         prop: "address",
         label: "地址",
-        width: "260"
+        width: "400"
       },
       {
         prop: "workStatus",
         label: "状态"
       },
-      {
+     /* {
         prop: "gradeName",
         label: "年级"
       },
       {
         prop: "className",
         label: "班级"
-      },
+      },*/
       {
         prop: "loginName",
         label: "账号"
@@ -345,22 +345,6 @@ export default {
       margin-top: 2px;
     }
   }
-}
-
-//弹框头部
-::v-deep .el-dialog__header {
-  --el-text-color-primary: #1EFFFF;
-  --el-text-color-regular: #fff;
-  padding: 0 !important;
-  width: 100%;
-  height: 64px;
-  background: #7986CB;
-}
-
-//弹框标题
-::v-deep .el-dialog__title {
-  margin-left: 24px;
-  line-height: 64px;
 }
 
 .mainClass {
