@@ -63,6 +63,7 @@ export default {
           window.sessionStorage.setItem('studentId',res.studentId);
           window.sessionStorage.setItem('studentName',res.studentName);
           window.sessionStorage.setItem('loginName',res.loginName);
+          window.sessionStorage.setItem('role',res.role);
           clickLogin();
         }else if(res.status === 1){
           ElMessage.warning('账号不存在！');

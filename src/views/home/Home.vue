@@ -90,6 +90,7 @@ export default defineComponent({
     let studentId = window.sessionStorage.getItem('studentId');
     let studentName = window.sessionStorage.getItem('studentName');
     let loginName = window.sessionStorage.getItem('loginName');
+    let role = window.sessionStorage.getItem('role');
     const chinaMap = ref([]);
     const tableLabel = {
       consumptionDate: '消费日期',

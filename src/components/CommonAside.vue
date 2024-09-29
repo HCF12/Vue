@@ -37,16 +37,17 @@
 
 <script>
 import { useRouter } from 'vue-router'
-import {getCurrentInstance, onMounted, ref} from "vue";
+import {getCurrentInstance, onMounted, reactive, ref} from "vue";
 
 import {useStore} from "vuex";
 
 export default {
   name: "CommonAside",
   setup() {
-    const store = useStore()
-    const {proxy} = getCurrentInstance()
-    let router = useRouter()
+    const store = useStore();
+    const {proxy} = getCurrentInstance();
+    let router = useRouter();
+    let role = window.sessionStorage.getItem('role');
 /*    const list = [
       {
         path: '/',
@@ -80,8 +81,11 @@ export default {
 
     const lists = ref([]);
 
+    let params = reactive({
+      role: role
+    });
     const getTableList = async () => {
-      let res = await proxy.$api.getMenuList();
+      let res = await proxy.$api.getMenuList(params);
       lists.value = res
     }
 
