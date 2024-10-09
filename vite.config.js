@@ -22,6 +22,6 @@ export default defineConfig({
         host: "127.0.0.1",
         port: 8081
     },
-    base: '/myDemo/',
-    mode: 'dev'
+    base: '/fc',
+    mode: 'test'
 })

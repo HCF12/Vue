@@ -2,162 +2,129 @@
   <div id="mainer">
     <div id="left">
       <el-tabs :tab-position="tabPosition" v-model="activeName" class="demo-tabs" :type="card"
-               style="flex-grow: 1;background-color: white" :tab-change="activeNameChange">
+        style="flex-grow: 1;background-color: white" :tab-change="activeNameChange">
         <el-tab-pane label="消费明细" name="first">
-          <el-form :inline="true" :model="formInLine" class="factor">
-            <el-select el-select v-model="formInLine.status" class="m-2" placeholder="请选择日期"
-                       @change="statusChange">
-              <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-              />
+          <el-form :inline="true" :model="formInLine">
+            <el-select el-select v-model="formInLine.status" class="m-2" placeholder="请选择日期" @change="statusChange"
+              style="width: 200px;">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
-            <el-link type="primary" @click="downloadBill">
-              <el-icon><Download /></el-icon>下载
+            <el-date-picker v-model="formInLine.expectedTime" type="datetimerange" format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss" range-separator="至" start-placeholder="请输入开始时间"
+              end-placeholder="请输入结束时间" style="margin-left: 20px;" />
+            <el-link type="primary" @click="downloadBill" style="margin-left: 20px;">
+              <el-icon>
+                <Download />
+              </el-icon>下载
             </el-link>
-
+            <el-button type="default" @click="clear" style="width: 100px; float: right;">重置</el-button>
+            <el-button type="success" @click="query" style="width: 100px; float: right; margin-right: 10px;">查询</el-button>
           </el-form>
           <el-table :data="tableData" style="height: 720px">
-            <el-table-column
-                v-for="(v,k) in tableLabel"
-                :key="k"
-                :prop="k"
-                :label="v"
-                style="border: 1px solid red"
-            >
+            <el-table-column v-for="(v, k) in tableLabel" :key="k" :prop="k" :label="v" style="border: 1px solid red">
             </el-table-column>
           </el-table>
           <div class="demo-pagination-block">
             <div class="demonstration" style="margin-top: 7px;font-size: 12px;flex-grow: 1;">{{
-                consumptionParam.size
-              }}条记录
+              consumptionParam.size
+            }}条记录
             </div>
-            <el-pagination
-                small
-                background
-                layout="prev, pager, next"
-                :total="consumptionParam.total"
-                class="pager mt-4"
-                @current-change="changePage"
-                :current-page="consumptionParam.pageNum"
-                :page-size="consumptionParam.pageSize"
-            />
+            <el-pagination small background layout="prev, pager, next" :total="consumptionParam.total"
+              class="pager mt-4" @current-change="changePage" :current-page="consumptionParam.pageNum"
+              :page-size="consumptionParam.pageSize" />
           </div>
         </el-tab-pane>
         <el-tab-pane label="类别汇总" name="second">
-          <el-form :inline="true" :model="formInLine" class="factor">
-            <el-select el-select v-model="formInLine.status" class="m-2" placeholder="请选择日期"
-                       @change="statusChange">
-              <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-              />
+          <el-form :inline="true" :model="formInLine">
+            <el-select el-select v-model="formInLine.status" class="m-2" placeholder="请选择日期" @change="statusChange"
+              style="width: 200px;">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
+            <el-date-picker v-model="formInLine.expectedTime" type="datetimerange" format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss" range-separator="至" start-placeholder="请输入开始时间"
+              end-placeholder="请输入结束时间" style="margin-left: 20px;" />
+            <el-link type="primary" @click="downloadBill" style="margin-left: 20px;">
+              <el-icon>
+                <Download />
+              </el-icon>下载
+            </el-link>
+            <el-button type="default" @click="clear" style="width: 100px; float: right;">重置</el-button>
+            <el-button type="success" @click="query" style="width: 100px; float: right; margin-right: 10px;">查询</el-button>
           </el-form>
           <el-table :data="tableDataOne" style="height: 720px">
-            <el-table-column
-                v-for="(v,k) in tableLabelOne"
-                :key="k"
-                :prop="k"
-                :label="v"
-            >
+            <el-table-column v-for="(v, k) in tableLabelOne" :key="k" :prop="k" :label="v">
             </el-table-column>
           </el-table>
           <div class="demo-pagination-block">
             <div class="demonstration" style="margin-top: 7px;font-size: 12px;flex-grow: 1;">{{
-                consumptionParam.size1
-              }}条记录
+              consumptionParam.size1
+            }}条记录
             </div>
-            <el-pagination
-                small
-                background
-                layout="prev, pager, next"
-                :total="consumptionParam.total1"
-                class="pager mt-4"
-                @current-change="changePage"
-                :current-page="consumptionParam.pageNum"
-                :page-size="consumptionParam.pageSize"
-            />
+            <el-pagination small background layout="prev, pager, next" :total="consumptionParam.total1"
+              class="pager mt-4" @current-change="changePage" :current-page="consumptionParam.pageNum"
+              :page-size="consumptionParam.pageSize" />
           </div>
         </el-tab-pane>
         <el-tab-pane label="日期汇总" name="third">
-          <el-form :inline="true" :model="formInLine" class="factor">
-            <el-select el-select v-model="formInLine.status" class="m-2" placeholder="请选择日期"
-                       @change="statusChange">
-              <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-              />
+          <el-form :inline="true" :model="formInLine">
+            <el-select el-select v-model="formInLine.status" class="m-2" placeholder="请选择日期" @change="statusChange"
+              style="width: 200px;">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
+            <el-date-picker v-model="formInLine.expectedTime" type="datetimerange" format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss" range-separator="至" start-placeholder="请输入开始时间"
+              end-placeholder="请输入结束时间" style="margin-left: 20px;" />
+            <el-link type="primary" @click="downloadBill" style="margin-left: 20px;">
+              <el-icon>
+                <Download />
+              </el-icon>下载
+            </el-link>
+            <el-button type="default" @click="clear" style="width: 100px; float: right;">重置</el-button>
+            <el-button type="success" @click="query" style="width: 100px; float: right; margin-right: 10px;">查询</el-button>
           </el-form>
           <el-table :data="tableDataTwo" style="height: 720px">
-            <el-table-column
-                v-for="(v,k) in tableLabelTwo"
-                :key="k"
-                :prop="k"
-                :label="v"
-            >
+            <el-table-column v-for="(v, k) in tableLabelTwo" :key="k" :prop="k" :label="v">
             </el-table-column>
           </el-table>
           <div class="demo-pagination-block">
             <div class="demonstration" style="margin-top: 7px;font-size: 12px;flex-grow: 1;">{{
-                consumptionParam.size2
-              }}条记录
+              consumptionParam.size2
+            }}条记录
             </div>
-            <el-pagination
-                small
-                background
-                layout="prev, pager, next"
-                :total="consumptionParam.total2"
-                class="pager mt-4"
-                @current-change="changePage"
-                :current-page="consumptionParam.pageNum"
-                :page-size="consumptionParam.pageSize"
-            />
+            <el-pagination small background layout="prev, pager, next" :total="consumptionParam.total2"
+              class="pager mt-4" @current-change="changePage" :current-page="consumptionParam.pageNum"
+              :page-size="consumptionParam.pageSize" />
           </div>
         </el-tab-pane>
         <el-tab-pane label="日期类目汇总" name="fourth">
-          <el-form :inline="true" :model="formInLine" class="factor">
-            <el-select el-select v-model="formInLine.status" class="m-2" placeholder="请选择日期"
-                       @change="statusChange">
-              <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-              />
+          <el-form :inline="true" :model="formInLine">
+            <el-select el-select v-model="formInLine.status" class="m-2" placeholder="请选择日期" @change="statusChange"
+              style="width: 200px;">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
+            <el-date-picker v-model="formInLine.expectedTime" type="datetimerange" format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss" range-separator="至" start-placeholder="请输入开始时间"
+              end-placeholder="请输入结束时间" style="margin-left: 20px;" />
+            <el-link type="primary" @click="downloadBill" style="margin-left: 20px;">
+              <el-icon>
+                <Download />
+              </el-icon>下载
+            </el-link>
+            <el-button type="default" @click="clear" style="width: 100px; float: right;">重置</el-button>
+            <el-button type="success" @click="query" style="width: 100px; float: right; margin-right: 10px;">查询</el-button>
           </el-form>
           <el-table :data="tableDataThree" style="height: 720px">
-            <el-table-column
-                v-for="(v,k) in tableLabelThree"
-                :key="k"
-                :prop="k"
-                :label="v"
-            >
+            <el-table-column v-for="(v, k) in tableLabelThree" :key="k" :prop="k" :label="v">
             </el-table-column>
           </el-table>
           <div class="demo-pagination-block">
             <div class="demonstration" style="margin-top: 7px;font-size: 12px;flex-grow: 1;">{{
-                consumptionParam.size3
-              }}条记录
+              consumptionParam.size3
+            }}条记录
             </div>
-            <el-pagination
-                small
-                background
-                layout="prev, pager, next"
-                :total="consumptionParam.total3"
-                class="pager mt-4"
-                @current-change="changePage"
-                :current-page="consumptionParam.pageNum"
-                :page-size="consumptionParam.pageSize"
-            />
+            <el-pagination small background layout="prev, pager, next" :total="consumptionParam.total3"
+              class="pager mt-4" @current-change="changePage" :current-page="consumptionParam.pageNum"
+              :page-size="consumptionParam.pageSize" />
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -166,14 +133,14 @@
 </template>
 
 <script>
-import {defineComponent, getCurrentInstance, onMounted, ref} from "vue";
-import {reactive} from "vue-demi";
+import { defineComponent, getCurrentInstance, onMounted, ref } from "vue";
+import { reactive } from "vue-demi";
 import moment from "moment";
 import config from "../config/index.js";
 
 export default defineComponent({
   setup() {
-    const {proxy} = getCurrentInstance()
+    const { proxy } = getCurrentInstance()
     const tabPosition = ref('left');
     const activeName = ref('first');
     const card = ref('border-card');
@@ -185,7 +152,8 @@ export default defineComponent({
     const formInLine = reactive({
       startTime: '',
       endTime: '',
-      status: 0
+      status: 0,
+      expectedTime: []
     });
     const options = [
       {
@@ -291,7 +259,7 @@ export default defineComponent({
     const downloadBill = async () => {
       /*let res = await proxy.$api.downloadBill(consumptionParam);
       downLoad(res);*/
-      window.open(config.baseApi + '/consumption/downloadBill/' + consumptionParam.startTime + '/' + consumptionParam.endTime + '/' + consumptionParam.studentId);
+      window.open(config.baseApi + '/consumption/downloadBill/' + consumptionParam.startTime + '/' + consumptionParam.endTime + '/' + consumptionParam.studentId + '/' + activeName.value);
     }
 
     const downLoad = (res, fileName) => {
@@ -413,8 +381,26 @@ export default defineComponent({
       } else if (activeName.value === 'fourth') {
         getUserSumConsumptionDateAndType();
       }
-
     }
+
+    //查询
+    let query = () => {
+        consumptionParam.startTime = formInLine.expectedTime[0];
+        consumptionParam.endTime = formInLine.expectedTime[1];
+        if (activeName.value === 'first') {
+          getTableList()
+        } else if (activeName.value === 'second') {
+          getUserSumConsumptionType();
+        } else if (activeName.value === 'third') {
+          getUserSumConsumptionDate();
+        } else if (activeName.value === 'fourth') {
+          getUserSumConsumptionDateAndType();
+        }
+      }
+
+      let clear = () => {
+        formInLine.expectedTime = [];
+      }
 
     onMounted(() => {
       getTableList();
@@ -445,7 +431,9 @@ export default defineComponent({
       changePage,
       consumptionParam,
       activeNameChange,
-      downloadBill
+      downloadBill,
+      query,
+      clear
     }
   }
 });
@@ -454,8 +442,8 @@ export default defineComponent({
 #mainer {
   background-color: white;
   display: flex;
-  height: 99%;
-  width: 99%;
+  height: 100%;
+  width: 100%;
 }
 
 #left {

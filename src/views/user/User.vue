@@ -23,85 +23,47 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-dialog v-model="dialogFormVisible.flag" :close-on-click-modal="false" width="700px" title="人员新增" align-center draggable>
-      <el-form :model="addStuForm" class="addForm" label-width="auto">
+    <el-dialog v-model="dialogFormVisible.flag" :close-on-click-modal="false" width="850px" title="人员新增" align-center
+      draggable>
+      <el-form :inline="true" :model="addStuForm" class="addForm">
         <el-row>
-          <el-col :span="24">
-            <el-form-item label="姓名：" style="display: flex">
-              <el-input v-model="addStuForm.studentName" class="w-50 m-2" type="text"></el-input>
-            </el-form-item>
-          </el-col>
+          <el-form-item label="姓名" style="margin-left: 20px;">
+            <el-input v-model="addStuForm.studentName" class="w-50 m-2" type="text" style="width: 180px;"></el-input>
+          </el-form-item>
+          <el-form-item label="手机号码" label-width="80px">
+            <el-input v-model="addStuForm.mobile" class="w-50 m-2" type="text" style="width: 180px;"></el-input>
+          </el-form-item>
+          <el-form-item label="性别">
+            <el-select v-model="addStuForm.gender" class="m-2" placeholder="请选择" style="width: 180px;">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+            </el-select>
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item label="账号" style="margin-left: 20px;">
+            <el-input v-model="addStuForm.loginName" class="w-50 m-2" type="text" style="width: 180px;"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" label-width="80px">
+            <el-input v-model="addStuForm.password" class="w-50 m-2" type="password" style="width: 180px;"></el-input>
+          </el-form-item>
+          <el-form-item label="角色">
+            <el-select v-model="addStuForm.role" class="m-2" placeholder="请选择" style="width: 180px;">
+              <el-option v-for="item in roleOptions" :key="item.roleId" :label="item.roleName" :value="item.roleId" />
+            </el-select>
+          </el-form-item>
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="性别：" style="display: flex">
-              <el-select v-model="addStuForm.gender" class="m-2" placeholder="请选择" style="width: 100%;">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-              </el-select>
+            <el-form-item label="地址" style="margin-left: 20px; display: flex;">
+              <el-input v-model="addStuForm.address" class="w-50 m-2" :rows="5" type="textarea"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="手机号码：" style="display: flex">
-              <el-input v-model="addStuForm.mobile" class="w-50 m-2" type="text"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="地址：" style="display: flex">
-              <el-input v-model="addStuForm.address" class="w-50 m-2" :rows="3" type="textarea"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <!-- <el-row>
-          <el-col :span="24">
-            <el-form-item label="年级：" style="display: flex">
-              <el-select v-model="addStuForm.gradeId" class="w-50 m-2" placeholder="请选择" style="width: 100%;"
-                @change="getClassList">
-                <el-option v-for="item in gradeData" :key="item.gradeId" :label="item.gradeName"
-                  :value="item.gradeId" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="班级：" style="display:flex;">
-              <el-select v-model="addStuForm.classId" class="el-select-v2__wrapper" placeholder="请选择"
-                style="width: 100%;">
-                <el-option v-for="item in classData" :key="item.classId" :label="item.className"
-                  :value="item.classId" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row> -->
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="登录名：" style="display: flex">
-              <el-input v-model="addStuForm.loginName" class="w-50 m-2" type="text"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-form-item label="密码：" style="display: flex">
-              <el-input v-model="addStuForm.password" class="w-50 m-2" type="password"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="22">
-            <el-form-item style="display: flex;margin-right: 10px; float: right">
-              <el-button :plain="true" type="primary" style="width: 100%" @click="insertEnter">确认</el-button>
-            </el-form-item>
-          </el-col>
-          <el-col :span="2">
-            <el-form-item style="display: flex;float: right">
-              <el-button style="width: 100%" @click="cancel">取消</el-button>
-            </el-form-item>
-          </el-col>
+        <el-row style="float: right">
+          <el-form-item style="margin: 30px 0px 0px 0px;">
+            <el-button :plain="true" type="primary" style="width: 100px" @click="insertEnter">确认</el-button>
+            <el-button style="width: 100px" @click="cancel">取消</el-button>
+          </el-form-item>
         </el-row>
       </el-form>
     </el-dialog>
@@ -114,10 +76,10 @@
         </el-table-column>
       </el-table>
       <div id="footer">
-      <div class="demonstration" style="flex-grow: 1;font-size: 12px;">{{ params.size }}条记录</div>
-      <el-pagination small background layout="prev, pager, next" :total="params.total" class="pager mt-4"
-        @current-change="changePage" :current-page="params.pageNum" :page-size="params.pageSize" />
-    </div>
+        <div class="demonstration" style="flex-grow: 1;font-size: 12px;">{{ params.size }}条记录</div>
+        <el-pagination small background layout="prev, pager, next" :total="params.total" class="pager mt-4"
+          @current-change="changePage" :current-page="params.pageNum" :page-size="params.pageSize" />
+      </div>
     </div>
   </div>
 </template>
@@ -160,14 +122,14 @@ export default {
         prop: "workStatus",
         label: "状态"
       },
-     /* {
-        prop: "gradeName",
-        label: "年级"
-      },
-      {
-        prop: "className",
-        label: "班级"
-      },*/
+      /* {
+         prop: "gradeName",
+         label: "年级"
+       },
+       {
+         prop: "className",
+         label: "班级"
+       },*/
       {
         prop: "loginName",
         label: "账号"
@@ -187,6 +149,7 @@ export default {
       }
 
     ]
+    const roleOptions = ref([]);
     const gradeData = ref([]);
 
     const classData = ref([]);
@@ -219,6 +182,12 @@ export default {
     const getGradeList = async () => {
       let res = await proxy.$api.getGradeList()
       gradeData.value = res
+    }
+
+    //角色
+    const getRoleList = async () => {
+      let res = await proxy.$api.getRoleList()
+      roleOptions.value = res
     }
     const classParams = reactive({
       gradeId: ''
@@ -263,13 +232,15 @@ export default {
       gradeId: '',
       classId: '',
       loginName: '',
-      password: ''
+      password: '',
+      role: ''
     });
     //注册
     const registerStudent = async () => {
       let res = await proxy.$api.addStudent(addStuForm);
       registerData.value = res;
-      dialogFormVisible.flag = false
+      getStudentList(params);
+      dialogFormVisible.flag = false;
       ElMessage.success('注册成功');
     }
     //新增确定
@@ -300,6 +271,7 @@ export default {
     onMounted(() => {
       getStudentList(params);
       getGradeList();
+      getRoleList();
     })
     return {
       tableLabel,
@@ -323,7 +295,9 @@ export default {
       insertEnter,
       openVn,
       handleSelectionChange1,
-      cancel
+      cancel,
+      roleOptions,
+      resetQueryParams
     }
   }
 }
@@ -355,8 +329,8 @@ export default {
 }
 
 #footer {
-    display: flex;
-    flex-direction: row;
-    padding: 5px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
 }
 </style>

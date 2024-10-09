@@ -324,4 +324,27 @@ export default {
             mock: false
         });
     },
+    getRoleList() {
+        return request({
+            url: '/role/getRoleList',
+            method: 'get',
+            mock: false
+        });
+    },
+    updPassword(params) {
+        return request({
+            url: '/studentManager/updPassword',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    batchInsertConsumption (params) {
+        return request({
+            url: '/consumption/batchInsertConsumption',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    }
 }
