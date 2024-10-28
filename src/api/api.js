@@ -346,5 +346,28 @@ export default {
             data: params,
             mock: false
         });
+    },
+    getEmailGroupHisById (params) {
+        return request({
+            url: '/emailHis/getEmailGroupHisById/' + params,
+            method: 'get',
+            mock: false
+        });
+    },
+    addLoginCheck (params) {
+        return request({
+            url: '/loginCheck/addLoginCheck',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    getCheckIdByOverdueTime (params) {
+        return request({
+            url: '/loginCheck/getCheckIdByOverdueTime',
+            method: 'post',
+            data: params,
+            mock: false
+        });
     }
 }

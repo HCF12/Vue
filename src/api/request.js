@@ -12,7 +12,6 @@ const service = axios.create({
 //在请求之前做一些事情
 service.interceptors.request.use((req) => {
     //store.commit("updateApiCount", "add");
-    console.log(req);
     store.state.isLoading=true
     store.commit('showLoading')
     return req

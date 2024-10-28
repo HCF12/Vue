@@ -10,8 +10,9 @@ import api from './api/api.js'
 import 'element-plus/es/components/message-box/style/index'
 import 'element-plus/es/components/message/style/index'
 import * as echarts from 'echarts'
+//import './styles/element/index.scss'
 import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
+//import 'element-plus/dist/index.css';
 import 'dayjs/locale/zh-cn';
 import locale from 'element-plus/es/locale/lang/zh-cn';
 const app = createApp(App)
