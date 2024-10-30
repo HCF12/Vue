@@ -55,7 +55,7 @@
         style="border-radius: 5px;flex-grow: 1;" highlight-current-row @row-dblclick="getEmailDetails">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column prop="hisGuid" label="历史编号" v-if="false" />
-        <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label">
+        <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label" :width="item.width" :show-overflow-tooltip="item.defaultVisible">
         </el-table-column>
       </el-table>
     </div>
@@ -138,13 +138,13 @@ export default {
       {
         prop: "batchGuid",
         label: "批次号",
-        width: 200,
+        width: 150,
         defaultVisible: true
       },
       {
         prop: "description",
         label: "模板名称",
-        width: 200,
+        width: 150,
         defaultVisible: true
       },
       {
@@ -156,7 +156,7 @@ export default {
       {
         prop: "customerName",
         label: "客户姓名",
-        width: 200,
+        width: 150,
         defaultVisible: true
       },
       {
@@ -168,25 +168,25 @@ export default {
       {
         prop: "carbon",
         label: "抄送邮箱",
-        width: 260,
+        width: 240,
         defaultVisible: true
       },
       {
         prop: "subject",
         label: "主题",
-        width: 200,
+        width: 240,
         defaultVisible: true
       },
       {
         prop: "pie",
         label: "发送通道",
-        width: 150,
+        width: 100,
         defaultVisible: true
       },
       {
         prop: "createdDate",
         label: "发送时间",
-        width: 260,
+        width: 220,
         defaultVisible: true
       }
     ]);
@@ -212,7 +212,7 @@ export default {
       prePage: 1,
       size: 0,
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 15,
       customerNo: '',
       customerName: '',
       startTime: '',

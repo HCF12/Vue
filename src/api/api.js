@@ -369,5 +369,13 @@ export default {
             data: params,
             mock: false
         });
+    },
+    getCheckIdInSideEffectTime (params) {
+        return request({
+            url: '/loginCheck/getCheckIdInSideEffectTime',
+            method: 'post',
+            data: params,
+            mock: false
+        });
     }
 }

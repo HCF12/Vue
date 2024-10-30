@@ -25,7 +25,6 @@ service.interceptors.request.use((req) => {
 //在请求之后做一些事情
 service.interceptors.response.use((res) => {
     const { code, data, msg } = res.data
-    console.log(res);
     //根据后端 协商 视情况而定
     if(code === "200" || code === 200){
         store.state.isLoading=false//loading加载动画

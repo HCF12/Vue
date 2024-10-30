@@ -38,15 +38,18 @@
         <el-row></el-row>
         <el-row>
           <el-col :span="19">
-            <el-form-item style="width: 100%;">
+            <!-- <el-form-item style="width: 100%;"> -->
               <el-input type="text" v-model="formLine.checkId" placeholder="请输入验证码" @keyup.enter="resetLogin" style="width: 100%;" />
-            </el-form-item>
+            <!-- </el-form-item> -->
           </el-col>
           <el-col :span="2" style="margin-left: 5px;">
-            <el-form-item>
+            <!-- <el-form-item> -->
               <el-button type="primary" @click="resetLogin" style="width: 70px;">确认</el-button>
-            </el-form-item>
+            <!-- </el-form-item> -->
           </el-col>
+        </el-row>
+        <el-row style="height: 25px; ">
+          <span style="padding-left: 210px; color: red; font-weight: bold;">{{ checkText }}</span>
         </el-row>
         <el-row style="border: 1px solid #CCC; height: 80px; padding-left: 20px;">
           <el-col>没有收到邮件？请尝试重新获取</el-col>
@@ -79,6 +82,7 @@ export default {
       count: 0
     });
     let countDown = ref(0);
+    let checkText = ref(null);
     let email = ref(null);
     let formLine = reactive({
       checkId: '',
@@ -88,13 +92,18 @@ export default {
     let loginCheckParam = reactive({
       loginName: '',
       email: '',
-      studentName: ''
+      studentName: '',
+      carbon: ''
     });
 
     let resetLoginParam = reactive({
       checkId: '',
       loginName: ''
     });
+
+    /**
+     * 登录校验
+     */
     const login = async () => {
       if (loginParams.loginName === '') {
         ElMessage.warning('请输入登录账号！');
@@ -124,7 +133,7 @@ export default {
           loginCheckParam.loginName = res.loginName;
           resetLoginParam.loginName = res.loginName;
           loginCheckParam.studentName = res.studentName;
-          addLoginCheck();
+          getCheckIdInSideEffectTime();
           //clickLogin();
           dialogFormVisible.flag = true;
         } else if (res.status === 1) {
@@ -136,6 +145,10 @@ export default {
         }
       }
     }
+
+    /**
+     * 跳转主页面
+     */
     const clickLogin = () => {
       router.push({
         name: 'main'
@@ -143,6 +156,9 @@ export default {
       store.state.isLogin = true;
     }
 
+    /**
+     * 重发验证码倒计时
+     */
     const startCountdown = () => {
       countDown.value = 60;
       addLoginCheck();
@@ -155,10 +171,16 @@ export default {
       }, 1000);
     }
 
+    /**
+     * 校验登录
+     */
     const resetLogin = () => {
       getCheckIdByOverdueTime();
     }
 
+    /**
+     * 校验输入的验证码是否正确(存在，有效期内)
+     */
     const getCheckIdByOverdueTime = async () => {
       resetLoginParam.checkId = formLine.checkId;
       let res = await proxy.$api.getCheckIdByOverdueTime(resetLoginParam);
@@ -172,8 +194,23 @@ export default {
       }
     }
 
+    /**
+     * 发送验证码
+     */
     const addLoginCheck = async () => {
+      checkText.value = null;
       let res = await proxy.$api.addLoginCheck(loginCheckParam);
+    }
+
+    /**
+     * 校验最新一条验证码是否在有效期内
+     */
+    const getCheckIdInSideEffectTime = async () => { 
+      let res = await proxy.$api.getCheckIdInSideEffectTime(loginCheckParam);
+      console.log(res);
+      if (res == '您的验证码仍在有效期内') {
+        checkText.value = '您的验证码仍在有效期内';
+      }
     }
 
     return {
@@ -184,7 +221,8 @@ export default {
       dialogFormVisible,
       resetLogin,
       countDown,
-      startCountdown
+      startCountdown,
+      checkText
     };
   }
 }
@@ -208,6 +246,10 @@ export default {
   background-image: url('../assets/images/bg.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.el-row {
+  margin-bottom: 0px;
 }
 
 .el-form-item__content {

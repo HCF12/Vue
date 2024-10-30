@@ -92,6 +92,7 @@ export default {
       bccMailbox: '',
       subject: '',
       sendContent: '',
+      studentName: window.sessionStorage.getItem('studentName'),
       enclosures : []
     });
 
