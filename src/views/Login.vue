@@ -185,9 +185,9 @@ export default {
       resetLoginParam.checkId = formLine.checkId;
       let res = await proxy.$api.getCheckIdByOverdueTime(resetLoginParam);
       if (res > 0) {
-        ElMessage.success('登录成功！');
-        dialogFormVisible.flag = false;
         clickLogin();
+        dialogFormVisible.flag = false;
+        ElMessage.success('登录成功！');
       } else {
         ElMessage.warning('验证码错误！');
         return;
@@ -207,7 +207,6 @@ export default {
      */
     const getCheckIdInSideEffectTime = async () => { 
       let res = await proxy.$api.getCheckIdInSideEffectTime(loginCheckParam);
-      console.log(res);
       if (res == '您的验证码仍在有效期内') {
         checkText.value = '您的验证码仍在有效期内';
       }
