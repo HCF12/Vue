@@ -122,8 +122,8 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button @click="dialogVisible.flag = false">取消</el-button>
-                <el-button type="primary" @click="save()">
+                <el-button @click="dialogVisible.flag = false" style="width: 100px;">取消</el-button>
+                <el-button type="primary" @click="save()" style="width: 100px;">
                     确认
                 </el-button>
             </div>
@@ -151,8 +151,8 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button @click="dialogVisible.priceFlag = false">取消</el-button>
-                <el-button type="primary" @click="setProductPriceBatch">
+                <el-button @click="dialogVisible.priceFlag = false" style="width: 100px;">取消</el-button>
+                <el-button type="primary" @click="setProductPriceBatch" style="width: 100px;">
                     确认
                 </el-button>
             </div>
@@ -172,8 +172,8 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button @click="dialogVisible.stockFlag = false">取消</el-button>
-                <el-button type="primary" @click="setProductStockBatch">
+                <el-button @click="dialogVisible.stockFlag = false" style="width: 100px;">取消</el-button>
+                <el-button type="primary" @click="setProductStockBatch" style="width: 100px;">
                     确认
                 </el-button>
             </div>

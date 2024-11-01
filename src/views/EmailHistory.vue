@@ -53,7 +53,6 @@
     <div id="bod" style="display:flex;flex-direction: column;flex-grow: 1">
       <el-table v-loading="loading" ref="multipleTable" :data="tableData" :stripe="true" :fit="true"
         style="border-radius: 5px;flex-grow: 1;" highlight-current-row @row-dblclick="getEmailDetails">
-        <el-table-column type="selection" width="55" align="center" />
         <el-table-column prop="hisGuid" label="历史编号" v-if="false" />
         <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label" :width="item.width" :show-overflow-tooltip="item.defaultVisible">
         </el-table-column>
@@ -259,13 +258,11 @@ export default {
 
     let getEmailDetails = (row) => {
       dialogFormVisible.flag = true;
-      console.log(row);
       getEmailGroupHisById(row.hisGuid);
     }
 
     //分页
     const changePage = (page) => {
-      console.log(page)
       params.pageNum = page;
       getEmailGroupSendHisInfo();
     }

@@ -30,5 +30,5 @@ export default defineConfig({
         port: 8081
     },
     base: '/fc',
-    mode: 'dev'
+    mode: 'test'
 })

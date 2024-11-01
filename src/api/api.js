@@ -377,5 +377,36 @@ export default {
             data: params,
             mock: false
         });
+    },
+    getBillEmailConfigurationList (params) {
+        return request({
+            url: '/billEmailConfiguration/getBillEmailConfigurationList',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    getStudentSelect () {
+        return request({
+            url: '/studentManager/getStudentSelect',
+            method: 'post',
+            mock: false
+        });
+    },
+    addBillEmailConfiguration (params) {
+        return request({
+            url: '/billEmailConfiguration/addBillEmailConfiguration',
+            method: 'post',
+            data: params,
+            mock: false
+        });
+    },
+    updateBillEmailConfigurationStatus (params) {
+        return request({
+            url: '/billEmailConfiguration/updateBillEmailConfigurationStatus',
+            method: 'post',
+            data: params,
+            mock: false
+        });
     }
 }

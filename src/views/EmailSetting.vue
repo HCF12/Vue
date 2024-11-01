@@ -210,14 +210,12 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="22">
+          <el-col>
             <el-form-item style="display: flex;float: right">
-              <el-button :plain="true" type="primary" style="width: 100%" @click="addEmailGroup(addStuForm.type)">确认</el-button>
+              <el-button :plain="true" type="primary" style="width: 100px" @click="addEmailGroup(addStuForm.type)">确认</el-button>
             </el-form-item>
-          </el-col>
-          <el-col :span="2">
-            <el-form-item style="display: flex;float: right">
-              <el-button style="width: 100%" @click="cancel">取消</el-button>
+            <el-form-item style="display: flex;float: right;margin-right: 10px">
+              <el-button style="width: 100px" @click="cancel">取消</el-button>
             </el-form-item>
           </el-col>
         </el-row>

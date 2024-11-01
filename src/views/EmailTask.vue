@@ -16,7 +16,6 @@
     <div id="table">
       <el-table v-loading="loading" ref="multipleTable" :data="tableData" :stripe="true" :fit="true"
         style="border-radius: 5px;flex-grow: 1;" highlight-current-row>
-        <el-table-column type="selection" width="55" align="center" />
         <el-table-column v-for="item in tableLabel" :key="item.prop" :prop="item.prop" :label="item.label"
           :width="item.width ? item.width : 130">
         </el-table-column>

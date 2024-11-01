@@ -216,6 +216,23 @@ const routes = [
                     }
                 },
                 component: () => import('../views/Product.vue')
+            },
+            {
+                path: '/billEmailConfiguration',
+                name: 'billEmailConfiguration',
+                beforeEnter: (to,from,next) => {
+                    if(store.state.isLogin){
+                        next();
+                    }else{
+                        const token = window.sessionStorage.getItem('token');
+                        if (!token) {
+                            next('/');
+                        } else {
+                            next();
+                        }
+                    }
+                },
+                component: () => import('../views/BillEmailConfiguration.vue')
             }
         ]
     }

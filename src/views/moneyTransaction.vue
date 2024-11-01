@@ -74,8 +74,8 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button @click="dialogVisible.flag = false">取消</el-button>
-                <el-button type="primary" @click="save">
+                <el-button @click="dialogVisible.flag = false" style="width: 100px;">取消</el-button>
+                <el-button type="primary" @click="save" style="width: 100px;">
                     确认
                 </el-button>
             </div>
