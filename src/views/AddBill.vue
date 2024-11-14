@@ -22,8 +22,10 @@
       <el-row>
         <el-col :span="24">
           <el-form-item label="消费日期：">
-            <el-input type="date" v-model="addStuForm.consumptionDate" placeholder="请选择交易日期"
-              format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" change="getdate()" style="width: 90%;" />
+            <!-- <el-input type="date" v-model="addStuForm.consumptionDate" placeholder="请选择交易日期"
+              format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" change="getdate()" style="width: 90%;" /> -->
+            <DatePicker placeholder="请选择日期时间" v-model="addStuForm.consumptionDate" format="yyyy-MM-dd" style="width: 90%;"
+              show-time enable-seconds />
           </el-form-item>
         </el-col>
       </el-row>
@@ -68,6 +70,7 @@ import { getCurrentInstance, onMounted, ref, shallowRef } from "vue";
 import { onBeforeUnmount, reactive } from "vue-demi";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import { ElMessage } from "element-plus";
+import DatePicker from '../components/DatePicker.vue'
 //import type { UploadInstance } from 'element-plus';
 //import config from "../config/index.js";
 export default {

@@ -11,6 +11,7 @@
   "dependencies": {
     "2.4.2": "^1.0.0",
     "@element-plus/icons-vue": "^2.0.9",
+    "@vuepic/vue-datepicker": "^10.0.0",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.1.2",
