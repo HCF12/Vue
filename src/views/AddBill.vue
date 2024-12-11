@@ -9,7 +9,7 @@
         </el-form-item>
       </el-col>
     </el-row>
-    <div v-show="addStuForm.saveType == 2">
+    <div v-show="addStuForm.saveType == '2'">
       <el-row>
         <el-col :span="24">
           <el-form-item label="选择文件：">
@@ -18,7 +18,7 @@
         </el-col>
       </el-row>
     </div>
-    <div v-show="addStuForm.saveType == 1">
+    <div v-show="addStuForm.saveType == '1'">
       <el-row>
         <el-col :span="24">
           <el-form-item label="消费日期：">
@@ -104,7 +104,7 @@ export default {
     }
     const onChange = (editor) => {
       const text = editor.getHtml();
-      this.$emit('update:content', text)
+      this.$emit('update:content', text);
     }
 
     let saveType = reactive([
@@ -130,7 +130,7 @@ export default {
     }
 
     const save = () => {
-      if (addStuForm.saveType == 1) {
+      if (addStuForm.saveType == '1') {
         saveConsumption();
       } else {
         uploadFile();

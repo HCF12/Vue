@@ -1,1 +1,30 @@
-R.var.event_user_sql = "INSERT INTO `sw_relation_event_user` (`rec_guid`, `event_id`, `user_code`, `user_name`, `user_mobile`, `water_address`, `event_type`, `yc_type`, `modify_by`, `modify_date`) select uuid(),'" + R.var.event_id + "',user_code,user_name,user_mobile,water_address,'" + R.var.event_type + "',null,'" + $staff.id + "',now() from sw_relation_event_import where batch_id = '" + R.var.batch_id + "'";
+[
+    { 
+        "connector": "and", 
+        "ruleItems": 
+        [
+            { 
+                "condition": "khfllx", 
+                "ruleParameter": { 
+                    "label": "用户类型", 
+                    "type": "string", 
+                    "value": "khfllx" 
+                }, 
+                "value": "个人客户", 
+                "operator": "=", 
+                "operatorDataType": "string" 
+            }, 
+            { 
+                "condition": "mgyhdz", 
+                "ruleParameter": { 
+                    "label": "敏感用户类型",
+                    "type": "string", 
+                    "value": "mgyhdz" 
+                }, 
+                "value": "非敏感用户", 
+                "operator": "=", 
+                "operatorDataType": "string" 
+            }
+        ] 
+    }
+]
